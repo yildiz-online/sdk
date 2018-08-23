@@ -1,0 +1,5 @@
+    <dependency>
+      <groupId>be.yildiz-games</groupId>
+      <artifactId>module-graphic-ogre-linux64</artifactId>
+      <version>1.0.1-SNAPSHOT</version>
+    </dependency>
