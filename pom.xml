@@ -4,23 +4,22 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+      <groupId>be.yildiz-games</groupId>
+      <artifactId>parent</artifactId>
+      <version>2.2.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>be.yildiz-engine</groupId>
     <artifactId>sdk</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
+      <dependency>
+        <groupId>be.yildiz-games</groupId>
+        <artifactId>module-window-swt-win64</artifactId>
+        <version>1.0.3-SNAPSHOT</version>
+      </dependency>
         <dependency>
             <groupId>org.eclipse.jgit</groupId>
             <artifactId>org.eclipse.jgit</artifactId>
