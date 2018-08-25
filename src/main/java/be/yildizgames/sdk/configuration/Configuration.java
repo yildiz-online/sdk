@@ -1,4 +1,4 @@
-package be.yildizengine.sdk.configuration;
+package be.yildizgames.sdk.configuration;
 
 public class Configuration {
 

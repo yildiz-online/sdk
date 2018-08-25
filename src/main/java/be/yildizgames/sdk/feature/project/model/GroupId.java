@@ -1,7 +1,5 @@
 package be.yildizgames.sdk.feature.project.model;
 
-import java.io.File;
-
 public class GroupId {
 
     public final String value;

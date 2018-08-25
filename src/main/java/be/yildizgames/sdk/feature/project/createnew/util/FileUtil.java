@@ -2,7 +2,6 @@ package be.yildizgames.sdk.feature.project.createnew.util;
 
 import be.yildizgames.sdk.feature.project.model.Project;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -28,11 +27,11 @@ public class FileUtil {
         return input
                 .replaceAll("--" + context.toUpperCase() + "-LIN--",
                         new String(Files.readAllBytes(
-                                PathUtil.getFromTemplate("engines/" + context + File.separator + engine + "-LIN")),
+                                PathUtil.getFromTemplate("engines/" + context + "/" + engine + "-LIN")),
                                 StandardCharsets.UTF_8))
                 .replaceAll("--" + context.toUpperCase() + "-WIN--",
                         new String(Files.readAllBytes(
-                                PathUtil.getFromTemplate("engines/" + context + File.separator + engine + "-WIN")),
+                                PathUtil.getFromTemplate("engines/" + context + "/" + engine + "-WIN")),
                                 StandardCharsets.UTF_8));
     }
 }

@@ -1,10 +1,9 @@
 package be.yildizgames.sdk.feature.project.createnew.generator;
 
 import be.yildizgames.sdk.configuration.Configuration;
-import be.yildizgames.sdk.feature.project.model.Project;
 import be.yildizgames.sdk.feature.project.createnew.util.PathUtil;
+import be.yildizgames.sdk.feature.project.model.Project;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,9 +22,9 @@ class DirectoryGenerator implements Generator{
             Path src = base.resolve("src");
             Path main = src.resolve("main");
             Path test = src.resolve("test");
-            Files.createDirectories(main.resolve("java" + File.separator + project.groupId.toDirectory() + File.separator + "entrypoint"));
+            Files.createDirectories(main.resolve("java/" + project.groupId.toDirectory() + "/entrypoint"));
             Files.createDirectories(main.resolve("resources"));
-            Files.createDirectories(test.resolve("java" + File.separator + project.groupId.toDirectory()));
+            Files.createDirectories(test.resolve("java/" + project.groupId.toDirectory()));
             Files.createDirectories(test.resolve("resources"));
         } catch (IOException e) {
             throw new GeneratorException(e);
