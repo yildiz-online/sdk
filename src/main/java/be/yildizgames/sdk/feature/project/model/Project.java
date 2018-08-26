@@ -14,7 +14,7 @@ public class Project {
 
     public final Engines engines;
 
-    public Project(Author author, Name name, GroupId groupId, Licence licence, Engines engines) {
+    public Project(Name name, Author author, GroupId groupId, Licence licence, Engines engines) {
         super();
         this.author = author;
         this.name = name;

@@ -2,6 +2,7 @@ package be.yildizgames.sdk.feature.project.createnew.generator;
 
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.createnew.util.PathUtil;
+import be.yildizgames.sdk.feature.project.model.NameValidationException;
 import be.yildizgames.sdk.feature.project.model.Project;
 
 import java.io.IOException;
@@ -15,7 +16,7 @@ class DirectoryGenerator implements Generator{
         try {
             Path base = PathUtil.getRoot(project, configuration);
             if(Files.exists(base)) {
-                throw new GeneratorException("A directory with this name already exists");
+                throw NameValidationException.exist();
             }
             Files.createDirectories(base);
             Files.createDirectory(base.resolve("media"));

@@ -2,7 +2,7 @@ package be.yildizgames.sdk.feature.project.createnew.generator;
 
 public class GeneratorException extends RuntimeException {
 
-    GeneratorException(String s) {
+    public GeneratorException(String s) {
         super(s);
     }
 

@@ -6,6 +6,9 @@ public class GroupId {
 
     public GroupId(String group) {
         super();
+        if(group == null || group.isEmpty()) {
+            throw GroupValidationException.empty();
+        }
         this.value = group;
     }
 

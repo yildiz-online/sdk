@@ -11,6 +11,9 @@ public class Author {
 
     public Author(final String name) {
         super();
+        if(name == null || name.isEmpty()) {
+            throw AuthorValidationException.empty();
+        }
         this.value = name;
     }
 }
