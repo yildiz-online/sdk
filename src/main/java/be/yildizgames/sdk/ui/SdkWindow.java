@@ -4,6 +4,7 @@ import be.yildizgames.module.color.Color;
 import be.yildizgames.module.window.swt.SwtWindow;
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.createnew.ui.ProjectCreationWindow;
+import be.yildizgames.sdk.feature.project.load.ui.ProjectLoadWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -30,6 +31,16 @@ public class SdkWindow {
                     @Override
                     public void widgetSelected(SelectionEvent selectionEvent) {
                         new ProjectCreationWindow(window).init(configuration);
+                    }
+                }
+        );
+        MenuItem loadProject = new MenuItem(m, SWT.PUSH);
+        loadProject.setText("&Load project");
+        loadProject.addSelectionListener(
+                new SelectionAdapter() {
+                    @Override
+                    public void widgetSelected(SelectionEvent selectionEvent) {
+                        new ProjectLoadWindow(window).init(configuration);
                     }
                 }
         );
