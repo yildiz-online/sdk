@@ -12,7 +12,7 @@ public class ToFile {
 
     public static void save(Path path, String content) {
         try {
-            Files.write(path, content.getBytes());
+            Files.write(path.resolve("project.yzf"), content.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

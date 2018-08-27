@@ -4,6 +4,7 @@ import be.yildizgames.module.color.Color;
 import be.yildizgames.module.window.swt.SwtWindow;
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.createnew.generator.GeneratorHandler;
+import be.yildizgames.sdk.feature.project.createnew.util.PathUtil;
 import be.yildizgames.sdk.feature.project.model.Author;
 import be.yildizgames.sdk.feature.project.model.AuthorValidationException;
 import be.yildizgames.sdk.feature.project.model.GroupId;
@@ -15,6 +16,8 @@ import be.yildizgames.sdk.feature.project.model.Project;
 import be.yildizgames.sdk.feature.project.model.ProjectManager;
 import be.yildizgames.sdk.feature.project.model.implementations.Engines;
 import be.yildizgames.sdk.feature.project.model.items.Scene;
+import be.yildizgames.sdk.feature.project.save.formatter.ObjectToJson;
+import be.yildizgames.sdk.feature.project.save.persistence.ToFile;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
@@ -70,6 +73,7 @@ public class ProjectCreationWindow {
                             .forProject(p, configuration)
                             .run();
                     projectManager.setProject(p);
+                    ToFile.save(PathUtil.getRoot(p, configuration), ObjectToJson.fromProject(p));
                 } catch (NameValidationException e) {
                     name.error.setText(e.getMessage());
                 } catch (AuthorValidationException e) {
