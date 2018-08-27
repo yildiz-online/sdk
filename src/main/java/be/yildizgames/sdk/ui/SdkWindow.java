@@ -69,7 +69,7 @@ public class SdkWindow {
 
     private void generateProjectTree(SwtWindow parent) {
         final Tree tree = parent.createTree();
-        tree.setSize(290, 290);
+        tree.setSize(200, parent.getHeight());
         TreeItem scene = new TreeItem(tree, 0);
         scene.setText("Scene");
         TreeItem model = new TreeItem(scene, 0);
