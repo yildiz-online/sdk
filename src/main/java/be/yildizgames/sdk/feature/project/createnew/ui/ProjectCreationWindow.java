@@ -12,7 +12,9 @@ import be.yildizgames.sdk.feature.project.model.Licence;
 import be.yildizgames.sdk.feature.project.model.Name;
 import be.yildizgames.sdk.feature.project.model.NameValidationException;
 import be.yildizgames.sdk.feature.project.model.Project;
+import be.yildizgames.sdk.feature.project.model.ProjectManager;
 import be.yildizgames.sdk.feature.project.model.implementations.Engines;
+import be.yildizgames.sdk.feature.project.model.items.Scene;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
@@ -24,12 +26,14 @@ import org.eclipse.swt.widgets.Text;
 
 public class ProjectCreationWindow {
 
+    private final ProjectManager projectManager;
     private SwtWindow window;
 
     private final SwtWindow parent;
 
-    public ProjectCreationWindow(SwtWindow parent) {
+    public ProjectCreationWindow(SwtWindow parent, ProjectManager projectManager) {
         this.parent = parent;
+        this.projectManager = projectManager;
     }
 
     public void init(Configuration configuration) {
@@ -59,11 +63,13 @@ public class ProjectCreationWindow {
                             new Name(name.input.getText()),
                             new Author(author.input.getText()),
                             new GroupId(group.input.getText()),
-                            getFromIndex(licence.input.getSelectionIndex()), Engines.defaultNoNetwork());
+                            getFromIndex(licence.input.getSelectionIndex()),
+                            Engines.defaultNoNetwork(),
+                            new Scene(1));
                     GeneratorHandler
                             .forProject(p, configuration)
                             .run();
-
+                    projectManager.setProject(p);
                 } catch (NameValidationException e) {
                     name.error.setText(e.getMessage());
                 } catch (AuthorValidationException e) {

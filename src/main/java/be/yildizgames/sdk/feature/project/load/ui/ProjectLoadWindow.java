@@ -18,8 +18,8 @@ public class ProjectLoadWindow {
         FileDialog fd = new FileDialog(this.parent.getShell(), SWT.OPEN);
         fd.setText("Open");
         fd.setFilterPath(configuration.rootPath);
-        String[] filterExt = { "*.yzf" };
-        fd.setFilterExtensions(filterExt);
-        fd.open();
+        fd.setFilterExtensions(new String[] { "*.yzf" });
+        String selected = fd.open();
+
     }
 }
