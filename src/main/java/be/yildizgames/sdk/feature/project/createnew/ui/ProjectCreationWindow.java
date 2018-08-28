@@ -73,6 +73,7 @@ public class ProjectCreationWindow {
                             .run();
                     projectManager.setProject(p);
                     ToFile.save(PathUtil.getRoot(p, configuration), ObjectToJson.fromProject(p));
+                    window.hide();
                 } catch (NameValidationException e) {
                     name.error.setText(e.getMessage());
                 } catch (AuthorValidationException e) {
@@ -87,14 +88,6 @@ public class ProjectCreationWindow {
 
     private static Licence getFromIndex(int index) {
         return Licence.values()[index];
-    }
-
-    public void hide() {
-        this.window.hide();
-    }
-
-    public void show() {
-        this.window.show();
     }
 
     private static abstract class InputEntry<T extends Control> {
