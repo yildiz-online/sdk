@@ -37,7 +37,9 @@ public class SdkWindow {
     private void generateMainView(SwtWindow window) {
         SwtGameWindow gameWindow = new SwtGameWindow();
         gameWindow.initialize(window, false);
-        gameWindow.getCanvas().setSize(200,200);
+        gameWindow.showCursor();
+    //    gameWindow.deleteLoadingResources();
+        gameWindow.getCanvas().setSize(100,100);
     }
 
     private void generateMenus(SwtWindow parent, ProjectManager projectManager, Configuration configuration) {
