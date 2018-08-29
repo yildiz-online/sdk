@@ -1,10 +1,18 @@
 package be.yildizgames.sdk.ui;
 
+import be.yildizgames.common.geometry.Point3D;
+import be.yildizgames.common.libloader.NativeResourceLoader;
+import be.yildizgames.common.model.EntityId;
+import be.yildizgames.common.shape.Box;
 import be.yildizgames.module.color.Color;
+import be.yildizgames.module.graphic.GraphicObject;
+import be.yildizgames.module.graphic.GraphicWorld;
+import be.yildizgames.module.graphic.material.Material;
+import be.yildizgames.module.graphic.ogre.OgreGraphicEngine;
 import be.yildizgames.module.window.swt.MenuBarElement;
 import be.yildizgames.module.window.swt.MenuElement;
-import be.yildizgames.module.window.swt.SwtGameWindow;
 import be.yildizgames.module.window.swt.SwtWindow;
+import be.yildizgames.module.window.swt.SwtWindowEngine;
 import be.yildizgames.module.window.swt.TreeElement;
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.createnew.ui.ProjectCreationWindow;
@@ -35,11 +43,14 @@ public class SdkWindow {
     }
 
     private void generateMainView(SwtWindow window) {
-        SwtGameWindow gameWindow = new SwtGameWindow();
-        gameWindow.initialize(window, false);
-        gameWindow.showCursor();
-    //    gameWindow.deleteLoadingResources();
-        gameWindow.getCanvas().setSize(100,100);
+        SwtWindowEngine w = new SwtWindowEngine(window, false);
+        w.deleteLoadingResources();
+        w.showCursor();
+        OgreGraphicEngine engine = new OgreGraphicEngine(w, NativeResourceLoader.inJar());
+        GraphicWorld world = engine.createWorld();
+        GraphicObject o = world.createMovableObject(EntityId.WORLD, Box.cube(50), Material.green(), Point3D.valueOf(0,0,-100));
+        world.createPointLight("t", Point3D.ZERO);
+        world.getDefaultCamera().setDirection(Point3D.BASE_DIRECTION);
     }
 
     private void generateMenus(SwtWindow parent, ProjectManager projectManager, Configuration configuration) {
