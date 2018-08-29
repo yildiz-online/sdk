@@ -1,7 +1,6 @@
 package be.yildizgames.sdk.ui;
 
 import be.yildizgames.module.color.Color;
-import be.yildizgames.module.graphic.ogre.OgreGraphicEngine;
 import be.yildizgames.module.window.swt.MenuBarElement;
 import be.yildizgames.module.window.swt.MenuElement;
 import be.yildizgames.module.window.swt.SwtGameWindow;
@@ -14,11 +13,14 @@ import be.yildizgames.sdk.feature.project.load.ui.ProjectLoadWindow;
 import be.yildizgames.sdk.feature.project.model.ProjectManager;
 import be.yildizgames.sdk.feature.project.save.formatter.ObjectToJson;
 import be.yildizgames.sdk.feature.project.save.persistence.ToFile;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Canvas;
-import org.eclipse.swt.widgets.Tree;
 
 public class SdkWindow {
+
+
+    public SdkWindow() {
+        super();
+    }
+
 
     public void init(Configuration configuration) {
         ProjectManager projectManager = new ProjectManager();
@@ -33,8 +35,9 @@ public class SdkWindow {
     }
 
     private void generateMainView(SwtWindow window) {
-        SwtGameWindow gameWindow = new SwtGameWindow(false);
-        gameWindow.initialize();
+        SwtGameWindow gameWindow = new SwtGameWindow();
+        gameWindow.initialize(window, false);
+        gameWindow.getCanvas().setSize(200,200);
     }
 
     private void generateMenus(SwtWindow parent, ProjectManager projectManager, Configuration configuration) {
@@ -46,7 +49,7 @@ public class SdkWindow {
     }
 
     private void generateProjectTree(SwtWindow parent) {
-        Tree tree = parent.createTree(150, parent.getHeight(),
+        parent.createTree(150, parent.getHeight(),
                 new TreeElement("Project",
                         new TreeElement("Scene",
                                 new TreeElement("Models"),

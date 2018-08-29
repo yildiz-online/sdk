@@ -7,6 +7,6 @@ public class EntryPoint {
 
     public static void main(String[] args) {
         Configuration configuration = new Configuration( System.getProperty("user.home") + "/test-projects");
-        new SdkWindow().init(configuration);
+        new SdkWindow(window).init(configuration);
     }
 }
