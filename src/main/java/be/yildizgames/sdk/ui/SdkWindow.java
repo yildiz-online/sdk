@@ -5,7 +5,6 @@ import be.yildizgames.common.libloader.NativeResourceLoader;
 import be.yildizgames.common.model.EntityId;
 import be.yildizgames.common.shape.Box;
 import be.yildizgames.module.color.Color;
-import be.yildizgames.module.graphic.GraphicObject;
 import be.yildizgames.module.graphic.GraphicWorld;
 import be.yildizgames.module.graphic.material.Material;
 import be.yildizgames.module.graphic.ogre.OgreGraphicEngine;
@@ -39,18 +38,21 @@ public class SdkWindow {
         this.generateMenus(window, projectManager, configuration);
         this.generateProjectTree(window);
         this.generateMainView(window);
-        window.run();
     }
 
     private void generateMainView(SwtWindow window) {
-        SwtWindowEngine w = new SwtWindowEngine(window, false);
-        w.deleteLoadingResources();
-        w.showCursor();
-        OgreGraphicEngine engine = new OgreGraphicEngine(w, NativeResourceLoader.inJar());
+        SwtWindowEngine windowEngine = new SwtWindowEngine(window, false);
+        windowEngine.deleteLoadingResources();
+        windowEngine.showCursor();
+        OgreGraphicEngine engine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
         GraphicWorld world = engine.createWorld();
-        GraphicObject o = world.createMovableObject(EntityId.WORLD, Box.cube(50), Material.green(), Point3D.valueOf(0,0,-100));
+        world.createMovableObject(EntityId.WORLD, Box.cube(50), Material.green(), Point3D.valueOf(0,0,-100));
         world.createPointLight("t", Point3D.ZERO);
         world.getDefaultCamera().setDirection(Point3D.BASE_DIRECTION);
+        while(true) {
+            windowEngine.updateWindow();
+            engine.update();
+        }
     }
 
     private void generateMenus(SwtWindow parent, ProjectManager projectManager, Configuration configuration) {
