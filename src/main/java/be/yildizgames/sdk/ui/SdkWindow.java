@@ -8,6 +8,13 @@ import be.yildizgames.module.color.Color;
 import be.yildizgames.module.graphic.GraphicWorld;
 import be.yildizgames.module.graphic.material.Material;
 import be.yildizgames.module.graphic.ogre.OgreGraphicEngine;
+import be.yildizgames.module.graphic.particle.ParticleColorAffector;
+import be.yildizgames.module.graphic.particle.ParticleEmitter;
+import be.yildizgames.module.graphic.particle.ParticleForceAffector;
+import be.yildizgames.module.graphic.particle.ParticleScaleAffector;
+import be.yildizgames.module.graphic.particle.ParticleSystem;
+import be.yildizgames.module.window.input.MousePosition;
+import be.yildizgames.module.window.input.WindowInputListener;
 import be.yildizgames.module.window.swt.MenuBarElement;
 import be.yildizgames.module.window.swt.MenuElement;
 import be.yildizgames.module.window.swt.SwtWindow;
@@ -18,6 +25,7 @@ import be.yildizgames.sdk.feature.project.createnew.ui.ProjectCreationWindow;
 import be.yildizgames.sdk.feature.project.createnew.util.PathUtil;
 import be.yildizgames.sdk.feature.project.load.ui.ProjectLoadWindow;
 import be.yildizgames.sdk.feature.project.model.ProjectManager;
+import be.yildizgames.sdk.feature.project.model.items.ParticleSystemRep;
 import be.yildizgames.sdk.feature.project.save.formatter.ObjectToJson;
 import be.yildizgames.sdk.feature.project.save.persistence.ToFile;
 
@@ -46,12 +54,28 @@ public class SdkWindow {
         windowEngine.showCursor();
         OgreGraphicEngine engine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
         GraphicWorld world = engine.createWorld();
-        world.createMovableObject(EntityId.WORLD, Box.cube(50), Material.green(), Point3D.valueOf(0,0,-100));
-        world.createPointLight("t", Point3D.ZERO);
-        world.getDefaultCamera().setDirection(Point3D.BASE_DIRECTION);
+        world.getDefaultCamera().setDirection(0,0.1f,0.1f);
+        ParticleSystem s = world.createParticleSystem();
+        s.setPosition(-50,100,100);
+        s.setQuota(100);
+        s.setMaterial(Material.green());
+        s.setSize(2,2);
+        ParticleEmitter e = s.addEmitter(ParticleEmitter.EmitterType.POINT);
+        e.setMinSpeed(100);
+        e.setMaxSpeed(100);
+        e.setLifeTime(1);
+        e.setRate(70);
+
+        s.start();
+        windowEngine.registerInput(new WindowInputListener() {
+            @Override
+            public void mouseLeftClick(MousePosition position) {
+            }
+        });
         while(true) {
             windowEngine.updateWindow();
             engine.update();
+            s.rotate(1,10);
         }
     }
 
