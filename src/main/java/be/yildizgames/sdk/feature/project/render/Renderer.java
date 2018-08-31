@@ -44,14 +44,17 @@ public class Renderer {
     }
 
     public void createWorld() {
+        // TODO Add getname to API
         GraphicWorld w = this.graphicEngine.createWorld();
         this.worlds.put("sc", w);
     }
 
     public void createParticleSystem(ParticleSystemDef def) {
+        //TODO Add definition to graphic API
         ParticleSystem s = this.worlds.get("sc").createParticleSystem();
         s.setPosition(def.getPosition());
         s.setQuota(def.getQuota());
+        //TODO add size from point2D to API (or size 2d and 3D object?)
         s.setSize(def.getSize().getX(), def.getSize().getY());
         s.setMaterial(Material.get(def.getMaterial()));
         for(ParticleEmitterDef ped : def.getEmitters()) {
