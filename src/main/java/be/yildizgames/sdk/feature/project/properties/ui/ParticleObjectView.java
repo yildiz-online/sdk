@@ -21,26 +21,51 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  *
  */
-package be.yildizgames.sdk.feature.project.load.ui;
+package be.yildizgames.sdk.feature.project.properties.ui;
 
+import be.yildizgames.module.graphic.particle.ParticleSystem;
 import be.yildizgames.module.window.swt.SwtWindow;
-import be.yildizgames.sdk.configuration.Configuration;
-import org.eclipse.swt.widgets.FileDialog;
+import be.yildizgames.module.window.swt.SwtWindowUtils;
+import be.yildizgames.sdk.feature.project.properties.ui.items.PositionItem;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 
-public class ProjectLoadWindow {
+public class ParticleObjectView {
 
     private final SwtWindow parent;
+    private final PositionItem position;
 
-    public ProjectLoadWindow(SwtWindow parent) {
+    private ParticleSystem system;
+
+    public ParticleObjectView(SwtWindow parent) {
         super();
         this.parent = parent;
+        this.createTitle();
+        this.position = new PositionItem(parent, this.createLabel("Position:", 1));
+        this.createLabel("Name:", 0);
+        this.createLabel("Quota:", 2);
+        this.createLabel("Material:", 3);
+        this.createLabel("Size:", 4);
     }
 
-    public void init(Configuration configuration) {
-        FileDialog fd = this.parent.createOpenFileDialog("Open");
-        fd.setFilterPath(configuration.rootPath);
-        fd.setFilterExtensions(new String[] { "*.yzf" });
-        String selected = fd.open();
+    private void createTitle() {
+        Label l = this.parent.createLabel("Particle", SwtWindowUtils.ColorValue.WHITE, Display.getCurrent().getSystemFont());
+        l.setSize(100,20);
+        l.setVisible(true);
+        l.setLocation(1055,25);
+    }
 
+    private Label createLabel(String value, int pos) {
+        Label l = this.parent.createTextLine();
+        l.setText(value);
+        l.setSize(100,100);
+        l.setVisible(true);
+        l.setLocation(900,50 + pos * 15);
+        return l;
+    }
+
+    public void setSystem(ParticleSystem system) {
+        this.system = system;
+        this.position.setMovable(system);
     }
 }

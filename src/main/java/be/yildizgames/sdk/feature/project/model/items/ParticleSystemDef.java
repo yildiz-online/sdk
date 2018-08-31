@@ -21,17 +21,43 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  *
  */
-package be.yildizgames.sdk.feature.project.model;
+package be.yildizgames.sdk.feature.project.model.items;
 
-public class Name {
+import be.yildizgames.common.geometry.Point2D;
+import be.yildizgames.common.geometry.Point3D;
 
-    public final String value;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Name(String value) {
-        super();
-        if(value == null || value.isEmpty()) {
-            throw NameValidationException.empty();
-        }
-        this.value = value;
+public class ParticleSystemDef {
+
+    private int quota;
+
+    private Point3D position;
+
+    private Point2D size;
+
+    private final List<ParticleEmitterDef> emitters = new ArrayList<>();
+
+    private String material;
+
+    public int getQuota() {
+        return this.quota;
+    }
+
+    public Point3D getPosition() {
+        return this.position;
+    }
+
+    public Point2D getSize() {
+        return this.size;
+    }
+
+    public List<ParticleEmitterDef> getEmitters() {
+        return this.emitters;
+    }
+
+    public String getMaterial() {
+        return material;
     }
 }
