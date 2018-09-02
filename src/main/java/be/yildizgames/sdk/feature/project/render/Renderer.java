@@ -1,5 +1,8 @@
 package be.yildizgames.sdk.feature.project.render;
 
+import be.yildizgames.common.geometry.Point2D;
+import be.yildizgames.common.geometry.Point3D;
+import be.yildizgames.common.libloader.NativeResourceLoader;
 import be.yildizgames.module.graphic.GraphicWorld;
 import be.yildizgames.module.graphic.material.Material;
 import be.yildizgames.module.graphic.ogre.OgreGraphicEngine;
@@ -30,7 +33,15 @@ public class Renderer {
         this.windowEngine = new SwtWindowEngine(window, false);
         windowEngine.deleteLoadingResources();
         windowEngine.showCursor();
-        /*OgreGraphicEngine engine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());*/
+        this.graphicEngine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
+        createWorld();
+        ParticleSystemDef def = new ParticleSystemDef();
+        def.setMaterial(Material.blue().getName());
+        def.setPosition(Point3D.valueOf(0,0,-100));
+        def.setSize(new Point2D(2,2));
+        ParticleEmitterDef edef = new ParticleEmitterDef(ParticleEmitter.EmitterType.POINT, 100, 100, 10000, 70);
+        def.addEmitter(edef);
+        createParticleSystem(def);
         windowEngine.registerInput(new WindowInputListener() {
             @Override
             public void mouseLeftClick(MousePosition position) {
@@ -38,15 +49,14 @@ public class Renderer {
         });
         while(run) {
             windowEngine.updateWindow();
-            //  engine.update();
+            graphicEngine.update();
             //s.rotate(1,10);
         }
     }
 
     public void createWorld() {
-        // TODO Add getname to API
         GraphicWorld w = this.graphicEngine.createWorld();
-        this.worlds.put("sc", w);
+        this.worlds.put(w.getName(), w);
     }
 
     public void createParticleSystem(ParticleSystemDef def) {

@@ -60,4 +60,24 @@ public class ParticleSystemDef {
     public String getMaterial() {
         return material;
     }
+
+    public void addEmitter(ParticleEmitterDef d) {
+        this.emitters.add(d);
+    }
+
+    public void setQuota(int quota) {
+        this.quota = quota;
+    }
+
+    public void setPosition(Point3D position) {
+        this.position = position;
+    }
+
+    public void setSize(Point2D size) {
+        this.size = size;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
 }

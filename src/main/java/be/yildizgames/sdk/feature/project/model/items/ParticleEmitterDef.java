@@ -11,6 +11,14 @@ public class ParticleEmitterDef {
     private float lifeTime;
     private float rate;
 
+    public ParticleEmitterDef(ParticleEmitter.EmitterType type, float minSpeed, float maxSpeed, float lifeTime, float rate) {
+        this.type = type;
+        this.minSpeed = minSpeed;
+        this.maxSpeed = maxSpeed;
+        this.lifeTime = lifeTime;
+        this.rate = rate;
+    }
+
     public ParticleEmitter.EmitterType getType() {
         return this.type;
     }
