@@ -1,7 +1,7 @@
 package be.yildizgames.sdk.feature.project.render;
 
-import be.yildizgames.common.geometry.Point2D;
 import be.yildizgames.common.geometry.Point3D;
+import be.yildizgames.common.geometry.Size2;
 import be.yildizgames.common.libloader.NativeResourceLoader;
 import be.yildizgames.module.graphic.GraphicWorld;
 import be.yildizgames.module.graphic.material.Material;
@@ -13,7 +13,7 @@ import be.yildizgames.module.window.input.WindowInputListener;
 import be.yildizgames.module.window.swt.SwtWindow;
 import be.yildizgames.module.window.swt.SwtWindowEngine;
 import be.yildizgames.sdk.feature.project.model.items.ParticleEmitterDef;
-import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDef;
+import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,10 +35,10 @@ public class Renderer {
         windowEngine.showCursor();
         this.graphicEngine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
         createWorld();
-        ParticleSystemDef def = new ParticleSystemDef();
+        ParticleSystemDefinition def = new ParticleSystemDefinition();
         def.setMaterial(Material.blue().getName());
         def.setPosition(Point3D.valueOf(0,0,-100));
-        def.setSize(new Point2D(2,2));
+        def.setSize(Size2.size2d(2, 2));
         ParticleEmitterDef edef = new ParticleEmitterDef(ParticleEmitter.EmitterType.POINT, 100, 100, 10000, 70);
         def.addEmitter(edef);
         createParticleSystem(def);
@@ -59,13 +59,13 @@ public class Renderer {
         this.worlds.put(w.getName(), w);
     }
 
-    public void createParticleSystem(ParticleSystemDef def) {
+    public void createParticleSystem(ParticleSystemDefinition def) {
         //TODO Add definition to graphic API
         ParticleSystem s = this.worlds.get("sc").createParticleSystem();
         s.setPosition(def.getPosition());
         s.setQuota(def.getQuota());
         //TODO add size from point2D to API (or size 2d and 3D object?)
-        s.setSize(def.getSize().getX(), def.getSize().getY());
+        s.setSize(def.getSize());
         s.setMaterial(Material.get(def.getMaterial()));
         for(ParticleEmitterDef ped : def.getEmitters()) {
             ParticleEmitter e = s.addEmitter(ped.getType());

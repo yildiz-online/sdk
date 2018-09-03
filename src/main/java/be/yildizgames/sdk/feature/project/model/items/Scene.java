@@ -34,7 +34,7 @@ public class Scene {
 
     private final List<Light> lights = new ArrayList<>();
 
-    private final List<ParticleSystemDef> particles = new ArrayList<>();
+    private final List<ParticleSystemDefinition> particles = new ArrayList<>();
 
     private final List<Camera> cameras = new ArrayList<>();
 

@@ -23,19 +23,19 @@
  */
 package be.yildizgames.sdk.feature.project.model.items;
 
-import be.yildizgames.common.geometry.Point2D;
 import be.yildizgames.common.geometry.Point3D;
+import be.yildizgames.common.geometry.Size2;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParticleSystemDef {
+public class ParticleSystemDefinition {
 
     private int quota;
 
     private Point3D position;
 
-    private Point2D size;
+    private Size2 size;
 
     private final List<ParticleEmitterDef> emitters = new ArrayList<>();
 
@@ -49,7 +49,7 @@ public class ParticleSystemDef {
         return this.position;
     }
 
-    public Point2D getSize() {
+    public Size2 getSize() {
         return this.size;
     }
 
@@ -73,7 +73,7 @@ public class ParticleSystemDef {
         this.position = position;
     }
 
-    public void setSize(Point2D size) {
+    public void setSize(Size2 size) {
         this.size = size;
     }
 

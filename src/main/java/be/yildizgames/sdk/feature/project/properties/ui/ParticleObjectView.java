@@ -45,7 +45,7 @@ public class ParticleObjectView {
         this.createLabel("Name:", 0);
         this.createLabel("Quota:", 2);
         this.createLabel("Material:", 3);
-        this.createLabel("Size:", 4);
+        this.createLabel("Size2:", 4);
     }
 
     private void createTitle() {
