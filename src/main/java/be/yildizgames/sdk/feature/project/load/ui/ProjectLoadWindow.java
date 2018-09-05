@@ -25,7 +25,12 @@ package be.yildizgames.sdk.feature.project.load.ui;
 
 import be.yildizgames.module.window.swt.SwtWindow;
 import be.yildizgames.sdk.configuration.Configuration;
+import be.yildizgames.sdk.feature.project.load.formatter.JsonToObject;
+import be.yildizgames.sdk.feature.project.load.persistence.FromFile;
+import be.yildizgames.sdk.feature.project.model.Project;
 import org.eclipse.swt.widgets.FileDialog;
+
+import java.nio.file.Paths;
 
 public class ProjectLoadWindow {
 
@@ -41,6 +46,6 @@ public class ProjectLoadWindow {
         fd.setFilterPath(configuration.rootPath);
         fd.setFilterExtensions(new String[] { "*.yzf" });
         String selected = fd.open();
-
+        Project p = JsonToObject.toProject(FromFile.load(Paths.get(selected)));
     }
 }

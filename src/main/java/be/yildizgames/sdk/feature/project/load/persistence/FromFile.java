@@ -23,11 +23,21 @@
  */
 package be.yildizgames.sdk.feature.project.load.persistence;
 
+import org.apache.commons.codec.Charsets;
+
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class FromFile {
 
     public static String load(Path path) {
-        return "";
+        try {
+            byte[] encoded = Files.readAllBytes(path);
+            return new String(encoded, Charsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }
