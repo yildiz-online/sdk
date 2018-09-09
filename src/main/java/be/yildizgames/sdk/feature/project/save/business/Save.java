@@ -21,33 +21,33 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  *
  */
-package be.yildizgames.sdk.feature.project.model.items;
+package be.yildizgames.sdk.feature.project.save.business;
 
-import java.util.ArrayList;
-import java.util.List;
+import be.yildizgames.sdk.configuration.Configuration;
+import be.yildizgames.sdk.feature.project.ProjectListener;
+import be.yildizgames.sdk.feature.project.createnew.util.PathUtil;
+import be.yildizgames.sdk.feature.project.model.Project;
+import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
+import be.yildizgames.sdk.feature.project.save.formatter.ObjectToJson;
+import be.yildizgames.sdk.feature.project.save.persistence.ToFile;
 
-public class Scene {
+import java.util.Optional;
 
-    private final String name;
+public class Save implements ProjectListener {
 
-    private final List<Model> models = new ArrayList<>();
+    private Project project;
 
-    private final List<Light> lights = new ArrayList<>();
-
-    private final List<ParticleSystemDefinition> particles = new ArrayList<>();
-
-    private final List<Camera> cameras = new ArrayList<>();
-
-    public Scene(String name ) {
-        super();
-        this.name = name;
+    public void save(Configuration configuration) {
+        Optional.ofNullable(this.project).ifPresent(p -> ToFile.save(PathUtil.getRoot(p, configuration), ObjectToJson.fromProject(p)));
     }
 
-    public List<ParticleSystemDefinition> getParticles() {
-        return particles;
+    @Override
+    public void onLoad(Project p) {
+        this.project = p;
     }
 
-    public String getName() {
-        return this.name;
+    @Override
+    public void onUpdate(ParticleSystemDefinition definition) {
+        this.project.scene.getParticles().add(definition);
     }
 }

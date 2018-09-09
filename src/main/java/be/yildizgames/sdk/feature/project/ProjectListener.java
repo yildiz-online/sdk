@@ -21,33 +21,14 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  *
  */
-package be.yildizgames.sdk.feature.project.model.items;
+package be.yildizgames.sdk.feature.project;
 
-import java.util.ArrayList;
-import java.util.List;
+import be.yildizgames.sdk.feature.project.model.Project;
+import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
 
-public class Scene {
+public interface ProjectListener {
 
-    private final String name;
+    void onLoad(Project p);
 
-    private final List<Model> models = new ArrayList<>();
-
-    private final List<Light> lights = new ArrayList<>();
-
-    private final List<ParticleSystemDefinition> particles = new ArrayList<>();
-
-    private final List<Camera> cameras = new ArrayList<>();
-
-    public Scene(String name ) {
-        super();
-        this.name = name;
-    }
-
-    public List<ParticleSystemDefinition> getParticles() {
-        return particles;
-    }
-
-    public String getName() {
-        return this.name;
-    }
+    void onUpdate(ParticleSystemDefinition definition);
 }

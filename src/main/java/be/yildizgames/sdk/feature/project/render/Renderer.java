@@ -1,8 +1,9 @@
 package be.yildizgames.sdk.feature.project.render;
 
-import be.yildizgames.common.geometry.Point3D;
-import be.yildizgames.common.geometry.Size2;
 import be.yildizgames.common.libloader.NativeResourceLoader;
+import be.yildizgames.module.coordinate.Coordinates;
+import be.yildizgames.module.coordinate.Position;
+import be.yildizgames.module.coordinate.Size;
 import be.yildizgames.module.graphic.GraphicWorld;
 import be.yildizgames.module.graphic.material.Material;
 import be.yildizgames.module.graphic.ogre.OgreGraphicEngine;
@@ -12,13 +13,16 @@ import be.yildizgames.module.window.input.MousePosition;
 import be.yildizgames.module.window.input.WindowInputListener;
 import be.yildizgames.module.window.swt.SwtWindow;
 import be.yildizgames.module.window.swt.SwtWindowEngine;
+import be.yildizgames.sdk.feature.project.ProjectListener;
+import be.yildizgames.sdk.feature.project.model.Project;
 import be.yildizgames.sdk.feature.project.model.items.ParticleEmitterDef;
 import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
+import be.yildizgames.sdk.feature.project.model.items.Scene;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Renderer {
+public class Renderer implements ProjectListener {
 
     private SwtWindowEngine windowEngine;
 
@@ -27,16 +31,19 @@ public class Renderer {
     private boolean run = false;
 
     private final Map<String, GraphicWorld> worlds = new HashMap<>();
+    private Scene currentScene;
+
+    public Renderer() {
+        super();
+    }
 
     public void init(SwtWindow window) {
-        this.run = true;
-        this.windowEngine = new SwtWindowEngine(window, false);
+        this.windowEngine = new SwtWindowEngine(window, new Coordinates(new Size(window.getWidth() - 150,window.getHeight()), new Position(150,0)));
         this.windowEngine.deleteLoadingResources();
         this.windowEngine.showCursor();
-        window.onClose((e) -> run = false);
-       /* this.graphicEngine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
-        this.createWorld();
-        ParticleSystemDefinition def = new ParticleSystemDefinition();
+        window.onClose(e -> run = false);
+        this.graphicEngine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
+       /* ParticleSystemDefinition def = new ParticleSystemDefinition();
         def.setMaterial(Material.blue().getName());
         def.setPosition(Point3D.valueOf(0,0,-100));
         def.setSize(Size2.valueOf(2, 2));
@@ -48,9 +55,14 @@ public class Renderer {
             public void mouseLeftClick(MousePosition position) {
             }
         });
+
+    }
+
+    public void run() {
+        this.run = true;
         while(run) {
             windowEngine.updateWindow();
-           // graphicEngine.update();
+            graphicEngine.update();
             //s.rotate(1,10);
         }
     }
@@ -60,9 +72,13 @@ public class Renderer {
         this.worlds.put(w.getName(), w);
     }
 
-    public void createParticleSystem(ParticleSystemDefinition def) {
+    public void createParticleSystem(Scene scene, ParticleSystemDefinition def) {
         //TODO Add definition to graphic API
-        ParticleSystem s = this.worlds.get("sc").createParticleSystem();
+        this.createParticleSystem(this.worlds.get(scene.getName()), def);
+    }
+
+    private void createParticleSystem(GraphicWorld w, ParticleSystemDefinition def) {
+        ParticleSystem s = w.createParticleSystem();
         s.setPosition(def.getPosition());
         s.setQuota(def.getQuota());
         s.setSize(def.getSize());
@@ -77,7 +93,21 @@ public class Renderer {
         s.start();
     }
 
-    public void stop() {
-        this.run = false;
+    private void materialize(Scene scene) {
+        this.createWorld();
+        for(ParticleSystemDefinition d: scene.getParticles()) {
+            createParticleSystem(scene, d);
+        }
+    }
+
+    @Override
+    public void onLoad(Project p) {
+        this.materialize(p.scene);
+        this.currentScene = p.scene;
+    }
+
+    @Override
+    public void onUpdate(ParticleSystemDefinition definition) {
+        this.createParticleSystem(this.currentScene, definition);
     }
 }

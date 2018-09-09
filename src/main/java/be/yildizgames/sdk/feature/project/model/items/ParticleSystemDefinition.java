@@ -31,15 +31,17 @@ import java.util.List;
 
 public class ParticleSystemDefinition {
 
+    private String name = "Particles";
+
     private int quota;
 
-    private Point3D position;
+    private Point3D position = Point3D.ZERO;
 
-    private Size2 size;
+    private Size2 size = Size2.ZERO;
 
     private final List<ParticleEmitterDef> emitters = new ArrayList<>();
 
-    private String material;
+    private String material = "empty";
 
     public int getQuota() {
         return this.quota;
@@ -79,5 +81,13 @@ public class ParticleSystemDefinition {
 
     public void setMaterial(String material) {
         this.material = material;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

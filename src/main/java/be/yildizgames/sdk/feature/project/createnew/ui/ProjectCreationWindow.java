@@ -26,6 +26,7 @@ package be.yildizgames.sdk.feature.project.createnew.ui;
 import be.yildizgames.module.color.Color;
 import be.yildizgames.module.window.swt.SwtWindow;
 import be.yildizgames.sdk.configuration.Configuration;
+import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.createnew.generator.GeneratorHandler;
 import be.yildizgames.sdk.feature.project.createnew.util.PathUtil;
 import be.yildizgames.sdk.feature.project.model.Author;
@@ -36,7 +37,6 @@ import be.yildizgames.sdk.feature.project.model.Licence;
 import be.yildizgames.sdk.feature.project.model.Name;
 import be.yildizgames.sdk.feature.project.model.NameValidationException;
 import be.yildizgames.sdk.feature.project.model.Project;
-import be.yildizgames.sdk.feature.project.model.ProjectManager;
 import be.yildizgames.sdk.feature.project.model.implementations.Engines;
 import be.yildizgames.sdk.feature.project.model.items.Scene;
 import be.yildizgames.sdk.feature.project.save.formatter.ObjectToJson;
@@ -49,16 +49,18 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import java.util.List;
+
 public class ProjectCreationWindow {
 
-    private final ProjectManager projectManager;
+    private final List<ProjectListener> listeners;
     private SwtWindow window;
 
     private final SwtWindow parent;
 
-    public ProjectCreationWindow(SwtWindow parent, ProjectManager projectManager) {
+    public ProjectCreationWindow(SwtWindow parent, List<ProjectListener> l) {
         this.parent = parent;
-        this.projectManager = projectManager;
+        this.listeners = l;
     }
 
     public void init(Configuration configuration) {
@@ -90,11 +92,11 @@ public class ProjectCreationWindow {
                             new GroupId(group.input.getText()),
                             getFromIndex(licence.input.getSelectionIndex()),
                             Engines.defaultNoNetwork(),
-                            new Scene(1));
+                            new Scene("sc"));
                     GeneratorHandler
                             .forProject(p, configuration)
                             .run();
-                    projectManager.setProject(p);
+                    listeners.forEach(l -> l.onLoad(p));
                     ToFile.save(PathUtil.getRoot(p, configuration), ObjectToJson.fromProject(p));
                     window.hide();
                 } catch (NameValidationException e) {

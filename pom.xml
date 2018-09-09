@@ -42,14 +42,9 @@
     <dependencies>
       <dependency>
         <groupId>be.yildiz-games</groupId>
-        <artifactId>module-window-swt-linux64</artifactId>
+        <artifactId>module-window-swt-win64</artifactId>
         <version>1.0.3-SNAPSHOT</version>
       </dependency>
-        <dependency>
-            <groupId>be.yildiz-games</groupId>
-            <artifactId>module-window-swt</artifactId>
-            <version>1.0.3-SNAPSHOT</version>
-        </dependency>
       <dependency>
         <groupId>be.yildiz-games</groupId>
         <artifactId>module-graphic-ogre-win64</artifactId>

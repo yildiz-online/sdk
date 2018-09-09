@@ -25,20 +25,25 @@ package be.yildizgames.sdk.feature.project.load.ui;
 
 import be.yildizgames.module.window.swt.SwtWindow;
 import be.yildizgames.sdk.configuration.Configuration;
+import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.load.formatter.JsonToObject;
 import be.yildizgames.sdk.feature.project.load.persistence.FromFile;
 import be.yildizgames.sdk.feature.project.model.Project;
 import org.eclipse.swt.widgets.FileDialog;
 
 import java.nio.file.Paths;
+import java.util.List;
 
 public class ProjectLoadWindow {
 
     private final SwtWindow parent;
 
-    public ProjectLoadWindow(SwtWindow parent) {
+    private final List<ProjectListener> listeners;
+
+    public ProjectLoadWindow(SwtWindow parent, List<ProjectListener> l) {
         super();
         this.parent = parent;
+        this.listeners = l;
     }
 
     public void init(Configuration configuration) {
@@ -47,5 +52,6 @@ public class ProjectLoadWindow {
         fd.setFilterExtensions(new String[] { "*.yzf" });
         String selected = fd.open();
         Project p = JsonToObject.toProject(FromFile.load(Paths.get(selected)));
+        this.listeners.forEach(l -> l.onLoad(p));
     }
 }
