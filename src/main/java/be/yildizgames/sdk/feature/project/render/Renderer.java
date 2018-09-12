@@ -43,13 +43,6 @@ public class Renderer implements ProjectListener {
         this.windowEngine.showCursor();
         window.onClose(e -> run = false);
         this.graphicEngine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
-       /* ParticleSystemDefinition def = new ParticleSystemDefinition();
-        def.setMaterial(Material.blue().getName());
-        def.setPosition(Point3D.valueOf(0,0,-100));
-        def.setSize(Size2.valueOf(2, 2));
-        ParticleEmitterDef edef = new ParticleEmitterDef(ParticleEmitter.EmitterType.POINT, 100, 100, 10000, 70);
-        def.addEmitter(edef);
-        createParticleSystem(def);*/
         this.windowEngine.registerInput(new WindowInputListener() {
             @Override
             public void mouseLeftClick(MousePosition position) {
@@ -69,6 +62,8 @@ public class Renderer implements ProjectListener {
 
     public void createWorld() {
         GraphicWorld w = this.graphicEngine.createWorld();
+        w.getDefaultCamera().setPosition(0,100,100);
+        w.getDefaultCamera().setDirection(0,-100,-100);
         this.worlds.put(w.getName(), w);
     }
 
