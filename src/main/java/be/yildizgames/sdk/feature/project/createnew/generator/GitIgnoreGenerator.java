@@ -38,7 +38,7 @@ class GitIgnoreGenerator implements Generator{
     public void generate(Project project, Configuration configuration) {
         try {
             Path gi = PathUtil.getRoot(project, configuration).resolve(".gitignore");
-            Files.copy(PathUtil.getFromTemplate(".gitignore"), gi);
+            Files.copy(PathUtil.getFromTemplate("gitignore"), gi);
             FileUtil.replacePlaceHolders(gi, project);
         } catch (IOException e) {
             throw new GeneratorException(e);
