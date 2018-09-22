@@ -31,6 +31,7 @@ import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.createnew.ui.ProjectCreationWindow;
 import be.yildizgames.sdk.feature.project.load.ui.ProjectLoadWindow;
+import be.yildizgames.sdk.feature.project.model.items.BoxDefinition;
 import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
 import be.yildizgames.sdk.feature.project.properties.ui.ParticleObjectView;
 import be.yildizgames.sdk.feature.project.render.Renderer;
@@ -83,7 +84,9 @@ public class SdkWindow {
                         new MenuElement( "Open", e -> new ProjectLoadWindow(parent, l).init(configuration)),
                         new MenuElement("Save", e -> this.save.save(configuration))),
                 new MenuBarElement("Create",
-                        new MenuElement("Particle system", e -> l.forEach(pl -> pl.onUpdate(new ParticleSystemDefinition()))))
+                        new MenuElement("Particle system", e -> l.forEach(pl -> pl.onUpdate(new ParticleSystemDefinition()))),
+                        new MenuElement("Box", e -> l.forEach(pl -> pl.onUpdate(new BoxDefinition())))
+                )
         );
 
     }

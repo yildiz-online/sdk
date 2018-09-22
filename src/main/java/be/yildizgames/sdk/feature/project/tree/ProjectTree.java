@@ -4,6 +4,7 @@ import be.yildizgames.module.window.swt.SwtWindow;
 import be.yildizgames.module.window.swt.TreeElement;
 import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.model.Project;
+import be.yildizgames.sdk.feature.project.model.items.BoxDefinition;
 import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -49,5 +50,14 @@ public class ProjectTree implements ProjectListener {
         TreeItem item = new TreeItem(particle, 0);
         item.setText(definition.getName());
         particle.setExpanded(true);
+    }
+
+    @Override
+    public void onUpdate(BoxDefinition definition) {
+        //FIXME fragile
+        TreeItem mesh = tree.getItem(0).getItem(0).getItem(0);
+        TreeItem item = new TreeItem(mesh, 0);
+        item.setText(definition.getName());
+        mesh.setExpanded(true);
     }
 }

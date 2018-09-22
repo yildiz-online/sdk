@@ -28,19 +28,19 @@ import be.yildizgames.common.model.EntityId;
 
 public class BoxDefinition {
 
-    private String name;
+    private String name = "box";
 
-    private EntityId id;
+    private EntityId id = EntityId.WORLD;
 
-    private Point3D position;
+    private Point3D position = Point3D.valueOf(0,0,-100);
 
-    private Point3D direction;
+    private Point3D direction = Point3D.BASE_DIRECTION;
 
-    private String material;
+    private String material = "_internal_blue_";
 
-    private Point3D size;
+    private Point3D size = Point3D.valueOf(10);
 
-    private boolean staticObject;
+    private boolean staticObject = false;
 
     public Point3D getPosition() {
         return position;

@@ -23,6 +23,7 @@
  */
 package be.yildizgames.sdk.feature.project.render;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.libloader.NativeResourceLoader;
 import be.yildizgames.common.shape.Box;
 import be.yildizgames.module.coordinate.Coordinates;
@@ -104,6 +105,8 @@ public class Renderer implements ProjectListener {
     }
 
     private void createBox(GraphicWorld w, BoxDefinition def) {
+        ImplementationException.throwForNull(w);
+        ImplementationException.throwForNull(def);
         Box s = Box.box((int)def.getSize().x, (int)def.getSize().y, (int)def.getSize().z);
         GraphicObject o;
         if(def.isStaticObject()) {
@@ -145,5 +148,10 @@ public class Renderer implements ProjectListener {
     @Override
     public void onUpdate(ParticleSystemDefinition definition) {
         this.createParticleSystem(this.currentScene, definition);
+    }
+
+    @Override
+    public void onUpdate(BoxDefinition definition) {
+        this.createBox(this.currentScene, definition);
     }
 }

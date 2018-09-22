@@ -23,5 +23,18 @@
  */
 package be.yildizgames.sdk.feature.project.model.items;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Model {
+
+    private List<BoxDefinition> boxes = new ArrayList<>();
+
+    public List<BoxDefinition> getBoxes() {
+        return boxes;
+    }
+
+    public void setBoxes(List<BoxDefinition> boxes) {
+        this.boxes = boxes;
+    }
 }

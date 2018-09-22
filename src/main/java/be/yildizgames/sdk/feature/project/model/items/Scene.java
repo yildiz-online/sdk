@@ -30,7 +30,7 @@ public class Scene {
 
     private final String name;
 
-    private final List<Model> models = new ArrayList<>();
+    private final Model models = new Model();
 
     private final List<Light> lights = new ArrayList<>();
 
@@ -49,5 +49,9 @@ public class Scene {
 
     public String getName() {
         return this.name;
+    }
+
+    public Model getModels() {
+        return this.models;
     }
 }

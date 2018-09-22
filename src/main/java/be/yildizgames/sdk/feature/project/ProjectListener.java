@@ -24,6 +24,7 @@
 package be.yildizgames.sdk.feature.project;
 
 import be.yildizgames.sdk.feature.project.model.Project;
+import be.yildizgames.sdk.feature.project.model.items.BoxDefinition;
 import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
 
 public interface ProjectListener {
@@ -31,4 +32,6 @@ public interface ProjectListener {
     void onLoad(Project p);
 
     void onUpdate(ParticleSystemDefinition definition);
+
+    void onUpdate(BoxDefinition definition);
 }

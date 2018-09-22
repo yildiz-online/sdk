@@ -27,6 +27,7 @@ import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.createnew.util.PathUtil;
 import be.yildizgames.sdk.feature.project.model.Project;
+import be.yildizgames.sdk.feature.project.model.items.BoxDefinition;
 import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
 import be.yildizgames.sdk.feature.project.save.formatter.ObjectToJson;
 import be.yildizgames.sdk.feature.project.save.persistence.ToFile;
@@ -49,5 +50,10 @@ public class Save implements ProjectListener {
     @Override
     public void onUpdate(ParticleSystemDefinition definition) {
         this.project.scene.getParticles().add(definition);
+    }
+
+    @Override
+    public void onUpdate(BoxDefinition definition) {
+        this.project.scene.getModels().getBoxes().add(definition);
     }
 }
