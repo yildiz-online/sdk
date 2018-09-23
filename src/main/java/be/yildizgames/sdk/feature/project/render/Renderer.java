@@ -137,6 +137,9 @@ public class Renderer implements ProjectListener {
         for(ParticleSystemDefinition d: scene.getParticles()) {
             createParticleSystem(scene, d);
         }
+        for(BoxDefinition d:scene.getModels().getBoxes()){
+            createBox(scene, d);
+        }
     }
 
     @Override

@@ -29,10 +29,15 @@ public class ProjectTree implements ProjectListener {
                 .map(pdef -> new TreeElement(pdef.getName()))
                 .toArray(TreeElement[]::new);
 
+        TreeElement[] boxes = p.scene.getModels().getBoxes()
+                .stream()
+                .map(pdef -> new TreeElement(pdef.getName()))
+                .toArray(TreeElement[]::new);
+
         this.tree = parent.createTree(150, parent.getHeight(),
                 new TreeElement("Project",
                         new TreeElement("Scene",
-                                new TreeElement("Models"),
+                                new TreeElement("Models", boxes),
                                 new TreeElement("Lights"),
                                 new TreeElement("Particles", particles),
                                 new TreeElement("Cameras")),
