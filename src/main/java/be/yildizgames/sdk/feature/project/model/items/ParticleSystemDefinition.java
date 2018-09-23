@@ -29,7 +29,7 @@ import be.yildizgames.common.geometry.Size2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParticleSystemDefinition {
+public class ParticleSystemDefinition implements Definition {
 
     private String name = "Particles";
 
@@ -83,6 +83,7 @@ public class ParticleSystemDefinition {
         this.material = material;
     }
 
+    @Override
     public String getName() {
         return name;
     }

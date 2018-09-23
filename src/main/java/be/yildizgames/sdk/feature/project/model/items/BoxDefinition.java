@@ -26,7 +26,7 @@ package be.yildizgames.sdk.feature.project.model.items;
 import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.model.EntityId;
 
-public class BoxDefinition {
+public class BoxDefinition implements Definition{
 
     private String name = "box";
 
@@ -74,6 +74,7 @@ public class BoxDefinition {
         this.size = size;
     }
 
+    @Override
     public String getName() {
         return name;
     }

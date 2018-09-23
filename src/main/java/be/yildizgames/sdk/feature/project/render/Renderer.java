@@ -25,12 +25,14 @@ package be.yildizgames.sdk.feature.project.render;
 
 import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.libloader.NativeResourceLoader;
+import be.yildizgames.common.model.EntityId;
 import be.yildizgames.common.shape.Box;
 import be.yildizgames.module.coordinate.Coordinates;
 import be.yildizgames.module.coordinate.Position;
 import be.yildizgames.module.coordinate.Size;
 import be.yildizgames.module.graphic.GraphicObject;
 import be.yildizgames.module.graphic.GraphicWorld;
+import be.yildizgames.module.graphic.RayProvider;
 import be.yildizgames.module.graphic.material.Material;
 import be.yildizgames.module.graphic.ogre.OgreGraphicEngine;
 import be.yildizgames.module.graphic.particle.ParticleEmitter;
@@ -48,6 +50,7 @@ import be.yildizgames.sdk.feature.project.model.items.Scene;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Renderer implements ProjectListener {
 
@@ -71,8 +74,13 @@ public class Renderer implements ProjectListener {
         window.onClose(e -> run = false);
         this.graphicEngine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
         this.windowEngine.registerInput(new WindowInputListener() {
+
             @Override
             public void mouseLeftClick(MousePosition position) {
+                GraphicWorld w = worlds.get(currentScene.getName());
+                RayProvider rp = w.getDefaultCamera();
+                Optional<EntityId> id = w.createQuery(rp).getEntity(position);
+                id.ifPresent(System.out::println);
             }
         });
 
@@ -108,11 +116,10 @@ public class Renderer implements ProjectListener {
         ImplementationException.throwForNull(w);
         ImplementationException.throwForNull(def);
         Box s = Box.box((int)def.getSize().x, (int)def.getSize().y, (int)def.getSize().z);
-        GraphicObject o;
         if(def.isStaticObject()) {
-            o = w.createStaticObject(def.getId(), s, Material.get(def.getMaterial()), def.getPosition(), def.getDirection());
+            w.createStaticObject(def.getId(), s, Material.get(def.getMaterial()), def.getPosition(), def.getDirection());
         } else {
-            o = w.createMovableObject(def.getId(), s, Material.get(def.getMaterial()), def.getPosition());
+            w.createMovableObject(def.getId(), s, Material.get(def.getMaterial()), def.getPosition());
         }
     }
 
