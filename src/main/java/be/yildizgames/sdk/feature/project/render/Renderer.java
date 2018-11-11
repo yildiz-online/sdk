@@ -24,13 +24,12 @@
 package be.yildizgames.sdk.feature.project.render;
 
 import be.yildizgames.common.exception.implementation.ImplementationException;
+import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.libloader.NativeResourceLoader;
-import be.yildizgames.common.model.EntityId;
 import be.yildizgames.common.shape.Box;
 import be.yildizgames.module.coordinate.Coordinates;
 import be.yildizgames.module.coordinate.Position;
 import be.yildizgames.module.coordinate.Size;
-import be.yildizgames.module.graphic.GraphicObject;
 import be.yildizgames.module.graphic.GraphicWorld;
 import be.yildizgames.module.graphic.RayProvider;
 import be.yildizgames.module.graphic.material.Material;
@@ -50,7 +49,6 @@ import be.yildizgames.sdk.feature.project.model.items.Scene;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class Renderer implements ProjectListener {
 
@@ -79,8 +77,10 @@ public class Renderer implements ProjectListener {
             public void mouseLeftClick(MousePosition position) {
                 GraphicWorld w = worlds.get(currentScene.getName());
                 RayProvider rp = w.getDefaultCamera();
-                Optional<EntityId> id = w.createQuery(rp).getEntity(position);
-                id.ifPresent(System.out::println);
+                //Optional<EntityId> id = w.createQuery(rp).getEntity(position);
+                Point3D p = w.createGroundQuery(rp).getPoint(position);
+                System.out.println(p);
+                //id.ifPresent(System.out::println);
             }
         });
 

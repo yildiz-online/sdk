@@ -23,6 +23,8 @@
  */
 package be.yildizgames.sdk;
 
+//FIXME move to common-util
+@Deprecated
 public class CountIncrement {
 
     private int count;
