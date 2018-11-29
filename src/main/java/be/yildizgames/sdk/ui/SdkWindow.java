@@ -40,7 +40,6 @@ import be.yildizgames.sdk.feature.project.properties.ui.ParticleObjectView;
 import be.yildizgames.sdk.feature.project.render.Renderer;
 import be.yildizgames.sdk.feature.project.save.business.Save;
 import be.yildizgames.sdk.feature.project.tree.ProjectTree;
-import com.sun.istack.internal.Pool;
 
 import java.util.List;
 
