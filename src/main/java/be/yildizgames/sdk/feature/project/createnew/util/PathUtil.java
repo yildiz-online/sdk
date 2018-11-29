@@ -32,6 +32,10 @@ import java.nio.file.Paths;
 
 public class PathUtil {
 
+    private PathUtil() {
+        super();
+    }
+
     public static Path getRoot(Project project, Configuration configuration) {
         return Paths.get(configuration.rootPath,  project.name.value);
     }

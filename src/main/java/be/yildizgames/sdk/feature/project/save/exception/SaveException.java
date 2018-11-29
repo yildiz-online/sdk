@@ -21,19 +21,21 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE  SOFTWARE.
  *
  */
-package be.yildizgames.sdk.feature.project.createnew.generator;
+package be.yildizgames.sdk.feature.project.save.exception;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
-import be.yildizgames.sdk.configuration.Configuration;
-import be.yildizgames.sdk.feature.project.model.Project;
+import be.yildizgames.common.exception.technical.TechnicalException;
 
-class MainGenerator {
+public class SaveException extends TechnicalException {
 
-    private MainGenerator() {
-        super();
+    public SaveException(String message, Exception cause) {
+        super(message, cause);
     }
 
-    public static void generate(Project project, Configuration configuration) {
-        ImplementationException.notYetImplemented();
+    public SaveException(Exception cause) {
+        super(cause);
+    }
+
+    public SaveException(String s) {
+        super(s);
     }
 }

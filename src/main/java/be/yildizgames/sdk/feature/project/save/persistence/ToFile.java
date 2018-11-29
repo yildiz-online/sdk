@@ -23,6 +23,8 @@
  */
 package be.yildizgames.sdk.feature.project.save.persistence;
 
+import be.yildizgames.sdk.feature.project.save.exception.SaveException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,7 +39,7 @@ public class ToFile {
         try {
             Files.write(path.resolve("project.yzf"), content.getBytes());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new SaveException(e);
         }
     }
 }

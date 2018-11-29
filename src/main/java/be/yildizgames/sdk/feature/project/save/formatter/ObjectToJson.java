@@ -29,6 +29,10 @@ import com.google.gson.GsonBuilder;
 
 public class ObjectToJson {
 
+    private ObjectToJson() {
+        super();
+    }
+
     public static String fromProject(Project p) {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();

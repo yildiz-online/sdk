@@ -32,6 +32,10 @@ import java.nio.file.Path;
 
 public class FileUtil {
 
+    private FileUtil() {
+        super();
+    }
+
     public static void replacePlaceHolders(Path file, Project project) throws IOException {
         String content = new String(Files.readAllBytes(file), StandardCharsets.UTF_8);
         content = content

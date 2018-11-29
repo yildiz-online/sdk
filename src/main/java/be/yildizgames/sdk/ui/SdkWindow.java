@@ -23,6 +23,7 @@
  */
 package be.yildizgames.sdk.ui;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.module.color.Color;
 import be.yildizgames.module.window.swt.MenuBarElement;
 import be.yildizgames.module.window.swt.MenuElement;
@@ -39,6 +40,7 @@ import be.yildizgames.sdk.feature.project.properties.ui.ParticleObjectView;
 import be.yildizgames.sdk.feature.project.render.Renderer;
 import be.yildizgames.sdk.feature.project.save.business.Save;
 import be.yildizgames.sdk.feature.project.tree.ProjectTree;
+import com.sun.istack.internal.Pool;
 
 import java.util.List;
 
@@ -111,11 +113,11 @@ public class SdkWindow implements ProjectListener {
 
     @Override
     public void onUpdate(ParticleSystemDefinition definition) {
-
+        ImplementationException.notYetImplemented();
     }
 
     @Override
     public void onUpdate(BoxDefinition definition) {
-
+        ImplementationException.notYetImplemented();
     }
 }
