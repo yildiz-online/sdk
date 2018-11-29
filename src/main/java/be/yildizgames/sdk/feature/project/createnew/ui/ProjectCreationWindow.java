@@ -131,20 +131,20 @@ public class ProjectCreationWindow {
         }
 
         private Label generateLabel(SwtWindow parent, int position, String txt) {
-            Label label = parent.createTextLine();
-            label.setText(txt);
-            label.setLocation(50, 100 + position * 50);
-            label.setSize(80, 20);
-            return label;
+            Label result = parent.createTextLine();
+            result.setText(txt);
+            result.setLocation(50, 100 + position * 50);
+            result.setSize(80, 20);
+            return result;
         }
 
         protected abstract T generateInput(SwtWindow parent, Control source);
 
         private Label generateErrorLabel(SwtWindow parent, Control source) {
-            Label error = parent.createTextLine();
-            error.setLocation(source.getLocation().x + source.getSize().x + 50, source.getLocation().y);
-            error.setSize(250, 20);
-            return error;
+            Label result = parent.createTextLine();
+            result.setLocation(source.getLocation().x + source.getSize().x + 50, source.getLocation().y);
+            result.setSize(250, 20);
+            return result;
         }
     }
 
@@ -155,10 +155,10 @@ public class ProjectCreationWindow {
         }
 
         protected Text generateInput(SwtWindow parent, Control source) {
-            Text t = parent.createInputBox();
-            t.setLocation(source.getLocation().x + source.getSize().x + 50, source.getLocation().y);
-            t.setSize(250,20);
-            return t;
+            Text result = parent.createInputBox();
+            result.setLocation(source.getLocation().x + source.getSize().x + 50, source.getLocation().y);
+            result.setSize(250,20);
+            return result;
         }
     }
 
