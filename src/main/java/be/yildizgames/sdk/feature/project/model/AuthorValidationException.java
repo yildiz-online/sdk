@@ -31,10 +31,6 @@ public class AuthorValidationException extends GeneratorException {
         super(msg);
     }
 
-    private AuthorValidationException(Exception e) {
-        super(e);
-    }
-
     static AuthorValidationException empty() {
         return new AuthorValidationException("Empty author");
     }

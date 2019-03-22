@@ -23,11 +23,15 @@
  */
 package be.yildizgames.sdk.configuration;
 
+import be.yildizgames.common.exception.implementation.ImplementationException;
+
 public class Configuration {
 
     public final String rootPath;
 
     public Configuration(String rootPath) {
+        super();
+        ImplementationException.throwForNull(rootPath);
         this.rootPath = rootPath;
     }
 }

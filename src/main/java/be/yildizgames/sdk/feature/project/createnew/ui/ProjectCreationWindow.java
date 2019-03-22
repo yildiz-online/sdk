@@ -41,6 +41,7 @@ import be.yildizgames.sdk.feature.project.model.implementations.Engines;
 import be.yildizgames.sdk.feature.project.model.items.Scene;
 import be.yildizgames.sdk.feature.project.save.formatter.ObjectToJson;
 import be.yildizgames.sdk.feature.project.save.persistence.ToFile;
+import be.yildizgames.sdk.ui.translation.SdkTranslation;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
@@ -54,31 +55,33 @@ import java.util.List;
 public class ProjectCreationWindow {
 
     private final List<ProjectListener> listeners;
+    private final SdkTranslation translation;
     private SwtWindow window;
 
     private final SwtWindow parent;
 
-    public ProjectCreationWindow(SwtWindow parent, List<ProjectListener> l) {
+    public ProjectCreationWindow(SwtWindow parent, List<ProjectListener> l, SdkTranslation translation) {
         this.parent = parent;
         this.listeners = l;
+        this.translation = translation;
     }
 
     public void init(Configuration configuration) {
         this.window = new SwtWindow(this.parent);
-        this.window.setWindowTitle("Create new project");
+        this.window.setWindowTitle(translation.createProject());
         this.window.setBackground(Color.rgb(50,50,50));
         this.window.show();
 
-        InputTextEntry name = new InputTextEntry(this.window, 0, "Project name");
-        InputTextEntry author = new InputTextEntry(this.window, 1, "Project author");
-        InputTextEntry group = new InputTextEntry(this.window, 2, "Project group");
+        InputTextEntry name = new InputTextEntry(this.window, 0, translation.createProjectName());
+        InputTextEntry author = new InputTextEntry(this.window, 1, translation.createProjectAuthor());
+        InputTextEntry group = new InputTextEntry(this.window, 2, translation.createProjectGroup());
 
-        InputComboEntry licence = new InputComboEntry(this.window, 3, "Project licence");
+        InputComboEntry licence = new InputComboEntry(this.window, 3, translation.createProjectLicence());
 
         Button b = this.window.createButton();
         b.setSize(150,50);
         b.setLocation(this.window.getWidth() - 200,this.window.getHeight() - 100);
-        b.setText("Create");
+        b.setText(translation.create());
         b.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent selectionEvent) {

@@ -83,17 +83,17 @@ public class ProjectTree implements ProjectListener {
 
     @Override
     public void onUpdate(ParticleSystemDefinition definition) {
-        TreeItem particle = tree.getElement(PARTICLE_ID);
+        /*TreeItem particle = tree.getElement(PARTICLE_ID);
         TreeItem item = new TreeItem(particle, 0);
         item.setText(definition.getName());
-        particle.setExpanded(true);
+        particle.setExpanded(true);*/
     }
 
     @Override
     public void onUpdate(BoxDefinition definition) {
-        TreeItem mesh = tree.getElement(MODEL_ID);
+        /*TreeItem mesh = tree.getElement(1);
         TreeItem item = new TreeItem(mesh, 0);
         item.setText(definition.getName());
-        mesh.setExpanded(true);
+        mesh.setExpanded(true);*/
     }
 }

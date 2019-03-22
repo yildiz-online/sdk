@@ -24,6 +24,7 @@
 package be.yildizgames.sdk.ui;
 
 import be.yildizgames.common.exception.implementation.ImplementationException;
+import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.module.color.Color;
 import be.yildizgames.module.window.swt.MenuBarElement;
 import be.yildizgames.module.window.swt.MenuElement;
@@ -35,29 +36,35 @@ import be.yildizgames.sdk.feature.project.createnew.ui.ProjectCreationWindow;
 import be.yildizgames.sdk.feature.project.load.ui.ProjectLoadWindow;
 import be.yildizgames.sdk.feature.project.model.Project;
 import be.yildizgames.sdk.feature.project.model.items.BoxDefinition;
+import be.yildizgames.sdk.feature.project.model.items.Material;
 import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
 import be.yildizgames.sdk.feature.project.properties.ui.ParticleObjectView;
 import be.yildizgames.sdk.feature.project.render.Renderer;
 import be.yildizgames.sdk.feature.project.save.business.Save;
 import be.yildizgames.sdk.feature.project.tree.ProjectTree;
+import be.yildizgames.sdk.ui.translation.SdkTranslation;
 
 import java.util.List;
 
 public class SdkWindow implements ProjectListener {
 
+    private static final int CREATE_BOX = 5;
 
-    private Save save;
+    private static final int CREATE_PARTICLE_SYSTEM = 4;
 
-    private Renderer renderer;
+    private static final int SAVE = 3;
+
+
+    private final Save save;
+
+    private final Renderer renderer;
     private SwtMenuBar bar;
+    private final SdkTranslation translation;
 
-    public SdkWindow() {
+    private SdkWindow(Configuration configuration) {
         super();
-    }
-
-
-    public void init(Configuration configuration) {
         SwtWindow window = new SwtWindow();
+        this.translation = new SdkTranslation();
         window.setWindowTitle("Yildiz-Engine SDK");
         window.setBackground(Color.rgb(50));
         window.show();
@@ -69,6 +76,11 @@ public class SdkWindow implements ProjectListener {
 
         //this.generateObjectData(window);
         renderer.run();
+    }
+
+
+    public static SdkWindow create(Configuration configuration) {
+        return new SdkWindow(configuration);
     }
 
     private Renderer generateMainView(SwtWindow window) {
@@ -84,19 +96,19 @@ public class SdkWindow implements ProjectListener {
     private void generateMenus(SwtWindow parent, List<ProjectListener> l, Configuration configuration) {
 
         this.bar = parent.createMenuBar(
-                new MenuBarElement("File",
-                        new MenuElement(1,"New", e ->  new ProjectCreationWindow(parent, l).init(configuration)),
-                        new MenuElement(2,"Open", e -> new ProjectLoadWindow(parent, l).init(configuration)),
-                        new MenuElement(3,"Save", e -> this.save.save(configuration))),
-                new MenuBarElement("Create",
-                        new MenuElement(4,"Particle system", e -> l.forEach(pl -> pl.onUpdate(new ParticleSystemDefinition()))),
-                        new MenuElement(5,"Box", e -> l.forEach(pl -> pl.onUpdate(new BoxDefinition())))
+                new MenuBarElement(translation.menuFile(),
+                        new MenuElement(1, translation.menuNew(), e ->  new ProjectCreationWindow(parent, l, this.translation).init(configuration)),
+                        new MenuElement(2, translation.menuOpen(), e -> new ProjectLoadWindow(parent, l).init(configuration)),
+                        new MenuElement(SAVE, translation.menuSave(), e -> this.save.save(configuration))),
+                new MenuBarElement(translation.menuCreate(),
+                        new MenuElement(CREATE_PARTICLE_SYSTEM, translation.menuParticleSystem(), e -> l.forEach(pl -> pl.onUpdate(new ParticleSystemDefinition()))),
+                        new MenuElement(CREATE_BOX,translation.menuBox(), e -> l.forEach(pl -> pl.onUpdate(new BoxDefinition())))
                 )
         );
 
-        this.bar.getItemById(3).ifPresent(i -> i.setEnabled(false));
-        this.bar.getItemById(4).ifPresent(i -> i.setEnabled(false));
-        this.bar.getItemById(5).ifPresent(i -> i.setEnabled(false));
+        this.bar.getItemById(SAVE).ifPresent(i -> i.setEnabled(false));
+        this.bar.getItemById(CREATE_PARTICLE_SYSTEM).ifPresent(i -> i.setEnabled(false));
+        this.bar.getItemById(CREATE_BOX).ifPresent(i -> i.setEnabled(false));
     }
 
     private void generateObjectData(SwtWindow parent) {
@@ -105,9 +117,9 @@ public class SdkWindow implements ProjectListener {
 
     @Override
     public void onLoad(Project p) {
-        this.bar.getItemById(3).ifPresent(i -> i.setEnabled(true));
-        this.bar.getItemById(4).ifPresent(i -> i.setEnabled(true));
-        this.bar.getItemById(5).ifPresent(i -> i.setEnabled(true));
+        this.bar.getItemById(SAVE).ifPresent(i -> i.setEnabled(true));
+        this.bar.getItemById(CREATE_PARTICLE_SYSTEM).ifPresent(i -> i.setEnabled(true));
+        this.bar.getItemById(CREATE_BOX).ifPresent(i -> i.setEnabled(true));
     }
 
     @Override
@@ -117,6 +129,6 @@ public class SdkWindow implements ProjectListener {
 
     @Override
     public void onUpdate(BoxDefinition definition) {
-        ImplementationException.notYetImplemented();
+
     }
 }
