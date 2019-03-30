@@ -23,35 +23,26 @@
  */
 package be.yildizgames.sdk.feature.project.load.ui;
 
-import be.yildizgames.module.window.swt.SwtWindow;
+import be.yildizgames.module.window.widget.WindowModalFile;
+import be.yildizgames.module.window.widget.WindowShell;
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.ProjectListener;
-import be.yildizgames.sdk.feature.project.load.formatter.JsonToObject;
-import be.yildizgames.sdk.feature.project.load.persistence.FromFile;
-import org.eclipse.swt.widgets.FileDialog;
 
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 public class ProjectLoadWindow {
 
-    private final SwtWindow parent;
+    private final WindowShell parent;
 
     private final List<ProjectListener> listeners;
 
-    public ProjectLoadWindow(SwtWindow parent, List<ProjectListener> l) {
+    public ProjectLoadWindow(WindowShell parent, List<ProjectListener> l) {
         super();
         this.parent = parent;
         this.listeners = l;
     }
 
     public void init(Configuration configuration) {
-        FileDialog fd = this.parent.createOpenFileDialog("Open");
-        fd.setFilterPath(configuration.rootPath);
-        fd.setFilterExtensions(new String[] { "*.yzf" });
-        String selected = fd.open();
-        Optional.ofNullable(selected).ifPresent(s ->
-        this.listeners.forEach(l -> l.onLoad(JsonToObject.toProject(FromFile.load(Paths.get(s))))));
+        WindowModalFile modalFile = this.parent.createOpenFileBox();
     }
 }

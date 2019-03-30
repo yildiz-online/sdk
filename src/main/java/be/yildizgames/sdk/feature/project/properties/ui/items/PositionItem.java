@@ -25,9 +25,10 @@ package be.yildizgames.sdk.feature.project.properties.ui.items;
 
 import be.yildizgames.common.gameobject.Movable;
 import be.yildizgames.common.geometry.Point3D;
-import be.yildizgames.module.window.swt.SwtWindow;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
+import be.yildizgames.module.coordinate.Coordinates;
+import be.yildizgames.module.window.widget.WindowInputBox;
+import be.yildizgames.module.window.widget.WindowShell;
+import be.yildizgames.module.window.widget.WindowTextLine;
 
 import java.util.Optional;
 
@@ -35,28 +36,27 @@ public class PositionItem {
 
     private Movable movable;
 
-    private final Text posX;
-    private final Text posY;
-    private final Text posZ;
+    private final WindowInputBox posX;
+    private final WindowInputBox posY;
+    private final WindowInputBox posZ;
 
-    public PositionItem(SwtWindow parent, Label label) {
+    public PositionItem(WindowShell parent, WindowTextLine label) {
         super();
         this.posX = this.createPos(parent, label, 0, "X value");
         this.posY = this.createPos(parent, label, 1, "Y value");
         this.posZ = this.createPos(parent, label, 2, "Z value");
     }
 
-    private Text createPos(SwtWindow parent, Label label, int i, String tooltip) {
-        Text pos = parent.createInputBox();
-        pos.setSize(60,20);
-        pos.setLocation(label.getLocation().x + 150 + i * 70, label.getLocation().y);
-        pos.setToolTipText(tooltip);
-        pos.addModifyListener(l -> Optional.ofNullable(movable).ifPresent(
+    private WindowInputBox createPos(WindowShell parent, WindowTextLine label, int i, String tooltip) {
+        WindowInputBox pos = parent.createInputBox();
+        pos.setCoordinates(new Coordinates(60,20, label.getLeft() + 150 + i * 70, label.getTop()));
+        pos.setToolTip(tooltip);
+        pos.onChange(l -> Optional.ofNullable(movable).ifPresent(
                 m -> m.setPosition(checkInput(posX), checkInput(posY), checkInput(posZ))));
         return pos;
     }
 
-    private static float checkInput(Text t) {
+    private static float checkInput(WindowInputBox t) {
         try {
             return Float.valueOf(t.getText());
         } catch (NumberFormatException e) {

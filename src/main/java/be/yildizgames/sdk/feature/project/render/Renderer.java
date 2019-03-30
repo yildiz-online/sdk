@@ -30,6 +30,7 @@ import be.yildizgames.common.shape.Box;
 import be.yildizgames.module.coordinate.Coordinates;
 import be.yildizgames.module.coordinate.Position;
 import be.yildizgames.module.coordinate.Size;
+import be.yildizgames.module.graphic.GraphicObjectBuilder;
 import be.yildizgames.module.graphic.GraphicWorld;
 import be.yildizgames.module.graphic.RayProvider;
 import be.yildizgames.module.graphic.material.Material;
@@ -38,8 +39,8 @@ import be.yildizgames.module.graphic.particle.ParticleEmitter;
 import be.yildizgames.module.graphic.particle.ParticleSystem;
 import be.yildizgames.module.window.input.MousePosition;
 import be.yildizgames.module.window.input.WindowInputListener;
-import be.yildizgames.module.window.swt.SwtWindow;
 import be.yildizgames.module.window.swt.SwtWindowEngine;
+import be.yildizgames.module.window.widget.WindowShell;
 import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.model.Project;
 import be.yildizgames.sdk.feature.project.model.items.BoxDefinition;
@@ -65,9 +66,8 @@ public class Renderer implements ProjectListener {
         super();
     }
 
-    public void init(SwtWindow window) {
-        this.windowEngine = new SwtWindowEngine(window, new Coordinates(new Size(window.getWidth() - 150,window.getHeight()), new Position(150,0)));
-        this.windowEngine.deleteLoadingResources();
+    public void init(WindowShell window) {
+        this.windowEngine = new SwtWindowEngine(window, new Coordinates(new Size(window.getScreenSize().width - 150,window.getScreenSize().height), new Position(150,0)));
         this.windowEngine.showCursor();
         window.onClose(e -> run = false);
         this.graphicEngine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
@@ -115,11 +115,15 @@ public class Renderer implements ProjectListener {
     private void createBox(GraphicWorld w, BoxDefinition def) {
         ImplementationException.throwForNull(w);
         ImplementationException.throwForNull(def);
-        Box s = Box.box((int)def.getSize().x, (int)def.getSize().y, (int)def.getSize().z);
+        GraphicObjectBuilder builder = w.createObject()
+                .withShape(Box.box((int)def.getSize().x, (int)def.getSize().y, (int)def.getSize().z))
+                .atPosition(def.getPosition())
+                .withId(def.getId())
+                .withMaterial(Material.get(def.getMaterial()));
         if(def.isStaticObject()) {
-            w.createStaticObject(def.getId(), s, Material.get(def.getMaterial()), def.getPosition(), def.getDirection());
+            builder.buildStatic();
         } else {
-            w.createMovableObject(def.getId(), s, Material.get(def.getMaterial()), def.getPosition());
+            builder.buildMovable();
         }
     }
 

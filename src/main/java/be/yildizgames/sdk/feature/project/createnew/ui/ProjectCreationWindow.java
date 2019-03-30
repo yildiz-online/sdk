@@ -24,7 +24,12 @@
 package be.yildizgames.sdk.feature.project.createnew.ui;
 
 import be.yildizgames.module.color.Color;
-import be.yildizgames.module.window.swt.SwtWindow;
+import be.yildizgames.module.coordinate.Coordinates;
+import be.yildizgames.module.window.widget.WindowButtonText;
+import be.yildizgames.module.window.widget.WindowDropdown;
+import be.yildizgames.module.window.widget.WindowInputBox;
+import be.yildizgames.module.window.widget.WindowShell;
+import be.yildizgames.module.window.widget.WindowTextLine;
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.createnew.generator.GeneratorHandler;
@@ -42,12 +47,8 @@ import be.yildizgames.sdk.feature.project.model.items.Scene;
 import be.yildizgames.sdk.feature.project.save.formatter.ObjectToJson;
 import be.yildizgames.sdk.feature.project.save.persistence.ToFile;
 import be.yildizgames.sdk.ui.translation.SdkTranslation;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import java.util.List;
@@ -56,21 +57,21 @@ public class ProjectCreationWindow {
 
     private final List<ProjectListener> listeners;
     private final SdkTranslation translation;
-    private SwtWindow window;
+    private WindowShell window;
 
-    private final SwtWindow parent;
+    private final WindowShell parent;
 
-    public ProjectCreationWindow(SwtWindow parent, List<ProjectListener> l, SdkTranslation translation) {
+    public ProjectCreationWindow(WindowShell parent, List<ProjectListener> l, SdkTranslation translation) {
         this.parent = parent;
         this.listeners = l;
         this.translation = translation;
     }
 
     public void init(Configuration configuration) {
-        this.window = new SwtWindow(this.parent);
-        this.window.setWindowTitle(translation.createProject());
+        this.window = this.parent.createChildWindow();
+        this.window.setTitle(translation.createProject());
         this.window.setBackground(Color.rgb(50,50,50));
-        this.window.show();
+        this.window.open();
 
         InputTextEntry name = new InputTextEntry(this.window, 0, translation.createProjectName());
         InputTextEntry author = new InputTextEntry(this.window, 1, translation.createProjectAuthor());
@@ -78,14 +79,11 @@ public class ProjectCreationWindow {
 
         InputComboEntry licence = new InputComboEntry(this.window, 3, translation.createProjectLicence());
 
-        Button b = this.window.createButton();
-        b.setSize(150,50);
-        b.setLocation(this.window.getWidth() - 200,this.window.getHeight() - 100);
+        WindowButtonText b = this.window.createTextButton();
+        b.setCoordinates(new Coordinates(150,50, this.window.getScreenSize().width - 200,this.window.getScreenSize().height - 100));
         b.setText(translation.create());
-        b.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent selectionEvent) {
-                name.error.setText("");
+        b.addMouseLeftClickListener(() -> {
+                 name.error.setText("");
                 author.error.setText("");
                 group.error.setText("");
                 try {
@@ -101,7 +99,7 @@ public class ProjectCreationWindow {
                             .run();
                     listeners.forEach(l -> l.onLoad(p));
                     ToFile.save(PathUtil.getRoot(p, configuration), ObjectToJson.fromProject(p));
-                    window.hide();
+                    window.close();
                 } catch (NameValidationException e) {
                     name.error.setText(e.getMessage());
                 } catch (AuthorValidationException e) {
@@ -110,7 +108,7 @@ public class ProjectCreationWindow {
                     group.error.setText(e.getMessage());
                 }
             }
-        });
+        );
         this.window.run();
     }
 
@@ -120,61 +118,60 @@ public class ProjectCreationWindow {
 
     private static abstract class InputEntry<T extends Control> {
 
-        final Label label;
+        final WindowTextLine label;
 
         final T input;
 
-        final Label error;
+        final WindowTextLine error;
 
-        private InputEntry(SwtWindow parent, int position, String txt) {
+        private InputEntry(WindowShell parent, int position, String txt) {
             super();
             this.label = generateLabel(parent, position, txt);
             this.input = generateInput(parent, label);
             this.error = generateErrorLabel(parent, input);
         }
 
-        private Label generateLabel(SwtWindow parent, int position, String txt) {
-            Label result = parent.createTextLine();
+        private WindowTextLine generateLabel(WindowShell parent, int position, String txt) {
+            WindowTextLine result = parent.createTextLine();
             result.setText(txt);
-            result.setLocation(50, 100 + position * 50);
-            result.setSize(80, 20);
+            result.setPosition(50, 100 + position * 50);
+            //result.setSize(80, 20);
             return result;
         }
 
-        protected abstract T generateInput(SwtWindow parent, Control source);
+        protected abstract T generateInput(WindowShell parent, Control source);
 
-        private Label generateErrorLabel(SwtWindow parent, Control source) {
-            Label result = parent.createTextLine();
-            result.setLocation(source.getLocation().x + source.getSize().x + 50, source.getLocation().y);
-            result.setSize(250, 20);
+        private WindowTextLine generateErrorLabel(WindowShell parent, Control source) {
+            WindowTextLine result = parent.createTextLine();
+            result.setPosition(source.getLocation().x + source.getSize().x + 50, source.getLocation().y);
+            //result.setSize(250, 20);
             return result;
         }
     }
 
     private static final class InputTextEntry extends InputEntry<Text> {
 
-        private InputTextEntry(SwtWindow parent, int position, String label) {
+        private InputTextEntry(WindowShell parent, int position, String label) {
             super(parent, position, label);
         }
 
-        protected Text generateInput(SwtWindow parent, Control source) {
-            Text result = parent.createInputBox();
-            result.setLocation(source.getLocation().x + source.getSize().x + 50, source.getLocation().y);
-            result.setSize(250,20);
+        protected WindowInputBox generateInput(WindowShell parent, Control source) {
+            WindowInputBox result = parent.createInputBox();
+            result.setCoordinates(new Coordinates(250,20, source.getLocation().x + source.getSize().x + 50, source.getLocation().y));
             return result;
         }
     }
 
     private static final class InputComboEntry extends InputEntry<Combo> {
 
-        private InputComboEntry(SwtWindow parent, int position, String label) {
+        private InputComboEntry(WindowShell parent, int position, String label) {
             super(parent, position, label);
         }
 
-        protected Combo generateInput(SwtWindow parent, Control source) {
-            Combo licence = parent.createDropdown(Licence.values());
-            licence.setLocation(source.getLocation().x + source.getSize().x + 50,source.getLocation().y);
-            licence.setSize(250,20);
+        protected WindowDropdown generateInput(WindowShell parent, Control source) {
+            WindowDropdown licence = parent.createDropdown();
+            licence.setItems(Licence.values());
+            licence.setCoordinates(new Coordinates(250,20, source.getLocation().x + source.getSize().x + 50,source.getLocation().y));
             return licence;
         }
     }

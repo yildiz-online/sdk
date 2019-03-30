@@ -23,21 +23,20 @@
  */
 package be.yildizgames.sdk.feature.project.properties.ui;
 
+import be.yildizgames.module.color.Color;
 import be.yildizgames.module.graphic.particle.ParticleSystem;
-import be.yildizgames.module.window.swt.SwtWindow;
-import be.yildizgames.module.window.swt.SwtWindowUtils;
+import be.yildizgames.module.window.widget.WindowShell;
+import be.yildizgames.module.window.widget.WindowTextLine;
 import be.yildizgames.sdk.feature.project.properties.ui.items.PositionItem;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
 
 public class ParticleObjectView {
 
-    private final SwtWindow parent;
+    private final WindowShell parent;
     private final PositionItem position;
 
     private ParticleSystem system;
 
-    public ParticleObjectView(SwtWindow parent) {
+    public ParticleObjectView(WindowShell parent) {
         super();
         this.parent = parent;
         this.createTitle();
@@ -49,18 +48,21 @@ public class ParticleObjectView {
     }
 
     private void createTitle() {
-        Label l = this.parent.createLabel("Particle", SwtWindowUtils.ColorValue.WHITE, Display.getCurrent().getSystemFont());
-        l.setSize(100,20);
+        WindowTextLine l = this.parent.createTextLine();
+        //SwtWindowUtils.ColorValue.WHITE, Display.getCurrent().getSystemFont()
+        l.setColor(Color.WHITE);
+        l.setText("Particle");
+        l.setPosition(1055,25);
+        //l.setSize(100,20);
         l.setVisible(true);
-        l.setLocation(1055,25);
     }
 
-    private Label createLabel(String value, int pos) {
-        Label l = this.parent.createTextLine();
+    private WindowTextLine createLabel(String value, int pos) {
+        WindowTextLine l = this.parent.createTextLine();
         l.setText(value);
-        l.setSize(100,100);
+        //l.setSize(100,100);
         l.setVisible(true);
-        l.setLocation(900,50 + pos * 15);
+        l.setPosition(900,50 + pos * 15);
         return l;
     }
 

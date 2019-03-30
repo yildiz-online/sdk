@@ -23,16 +23,15 @@
  */
 package be.yildizgames.sdk.feature.project.tree;
 
-import be.yildizgames.module.window.swt.SwtWindow;
-import be.yildizgames.module.window.swt.TreeElement;
-import be.yildizgames.module.window.swt.TreeRoot;
+import be.yildizgames.module.window.widget.WindowShell;
+import be.yildizgames.module.window.widget.WindowTreeElement;
+import be.yildizgames.module.window.widget.WindowTreeRoot;
 import be.yildizgames.sdk.CountIncrement;
 import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.model.Project;
 import be.yildizgames.sdk.feature.project.model.items.BoxDefinition;
 import be.yildizgames.sdk.feature.project.model.items.Definition;
 import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
-import org.eclipse.swt.widgets.TreeItem;
 
 import java.util.List;
 
@@ -42,42 +41,42 @@ public class ProjectTree implements ProjectListener {
 
     private static final int PARTICLE_ID = 4;
 
-    private final SwtWindow parent;
+    private final WindowShell parent;
 
-    private TreeRoot tree;
+    private WindowTreeRoot tree;
 
-    public ProjectTree(SwtWindow parent) {
+    public ProjectTree(WindowShell parent) {
         this.parent = parent;
-        this.tree = parent.createTree(150, parent.getHeight());
+        this.tree = parent.createTreeRoot(150, parent.getScreenSize().height);
     }
 
     @Override
     public void onLoad(Project p) {
         this.tree.delete();
 
-        TreeElement[] particles = generate(50, p.scene.getParticles());
-        TreeElement[] boxes = generate(150, p.scene.getModels().getBoxes());
+        WindowTreeElement[] particles = generate(50, p.scene.getParticles());
+        WindowTreeElement[] boxes = generate(150, p.scene.getModels().getBoxes());
 
-        this.tree = parent.createTree(150, parent.getHeight(),
-                new TreeElement(0,"Project",
-                        new TreeElement(1,"Scene",
-                                new TreeElement(MODEL_ID,"Models", boxes),
-                                new TreeElement(3,"Lights"),
-                                new TreeElement(PARTICLE_ID,"Particles", particles),
-                                new TreeElement(5,"Cameras")),
-                        new TreeElement(6,"Materials"),
-                        new TreeElement(7,"Audios",
-                                new TreeElement(8,"SFX"),
-                                new TreeElement(9,"Musics")),
-                        new TreeElement(10,"UI")));
+        this.tree = parent.createTreeRoot(150, parent.getScreenSize().height,
+                new WindowTreeElement(0,"Project",
+                        new WindowTreeElement(1,"Scene",
+                                new WindowTreeElement(MODEL_ID,"Models", boxes),
+                                new WindowTreeElement(3,"Lights"),
+                                new WindowTreeElement(PARTICLE_ID,"Particles", particles),
+                                new WindowTreeElement(5,"Cameras")),
+                        new WindowTreeElement(6,"Materials"),
+                        new WindowTreeElement(7,"Audios",
+                                new WindowTreeElement(8,"SFX"),
+                                new WindowTreeElement(9,"Musics")),
+                        new WindowTreeElement(10,"UI")));
     }
 
-    private TreeElement[] generate(int baseId, List<? extends Definition> definitions) {
+    private WindowTreeElement[] generate(int baseId, List<? extends Definition> definitions) {
         CountIncrement counter = new CountIncrement(baseId);
         return definitions
                 .stream()
-                .map(pdef -> new TreeElement(counter.getAndIncrement(), pdef.getName()))
-                .toArray(TreeElement[]::new);
+                .map(pdef -> new WindowTreeElement(counter.getAndIncrement(), pdef.getName()))
+                .toArray(WindowTreeElement[]::new);
     }
 
 

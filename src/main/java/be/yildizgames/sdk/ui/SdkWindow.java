@@ -24,19 +24,16 @@
 package be.yildizgames.sdk.ui;
 
 import be.yildizgames.common.exception.implementation.ImplementationException;
-import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.module.color.Color;
-import be.yildizgames.module.window.swt.MenuBarElement;
-import be.yildizgames.module.window.swt.MenuElement;
-import be.yildizgames.module.window.swt.SwtMenuBar;
-import be.yildizgames.module.window.swt.SwtWindow;
+import be.yildizgames.module.window.swt.widget.SwtWindowMenuBar;
+import be.yildizgames.module.window.swt.widget.SwtWindowShell;
+import be.yildizgames.module.window.widget.WindowShell;
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.createnew.ui.ProjectCreationWindow;
 import be.yildizgames.sdk.feature.project.load.ui.ProjectLoadWindow;
 import be.yildizgames.sdk.feature.project.model.Project;
 import be.yildizgames.sdk.feature.project.model.items.BoxDefinition;
-import be.yildizgames.sdk.feature.project.model.items.Material;
 import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
 import be.yildizgames.sdk.feature.project.properties.ui.ParticleObjectView;
 import be.yildizgames.sdk.feature.project.render.Renderer;
@@ -58,16 +55,16 @@ public class SdkWindow implements ProjectListener {
     private final Save save;
 
     private final Renderer renderer;
-    private SwtMenuBar bar;
+    private SwtWindowMenuBar bar;
     private final SdkTranslation translation;
 
     private SdkWindow(Configuration configuration) {
         super();
-        SwtWindow window = new SwtWindow();
+        WindowShell window = SwtWindowShell.withClose();
         this.translation = new SdkTranslation();
-        window.setWindowTitle("Yildiz-Engine SDK");
+        window.setTitle("Yildiz-Engine SDK");
         window.setBackground(Color.rgb(50));
-        window.show();
+        window.open();
         ProjectTree t = this.generateTreeView(window);
         this.renderer = generateMainView(window);
         this.save = new Save();
@@ -83,17 +80,17 @@ public class SdkWindow implements ProjectListener {
         return new SdkWindow(configuration);
     }
 
-    private Renderer generateMainView(SwtWindow window) {
+    private Renderer generateMainView(WindowShell window) {
         Renderer renderer = new Renderer();
         renderer.init(window);
         return renderer;
     }
 
-    private ProjectTree generateTreeView(SwtWindow window) {
+    private ProjectTree generateTreeView(WindowShell window) {
         return new ProjectTree(window);
     }
 
-    private void generateMenus(SwtWindow parent, List<ProjectListener> l, Configuration configuration) {
+    private void generateMenus(WindowShell parent, List<ProjectListener> l, Configuration configuration) {
 
         this.bar = parent.createMenuBar(
                 new MenuBarElement(translation.menuFile(),
@@ -111,7 +108,7 @@ public class SdkWindow implements ProjectListener {
         this.bar.getItemById(CREATE_BOX).ifPresent(i -> i.setEnabled(false));
     }
 
-    private void generateObjectData(SwtWindow parent) {
+    private void generateObjectData(WindowShell parent) {
         ParticleObjectView particleObjectView = new ParticleObjectView(parent);
     }
 
