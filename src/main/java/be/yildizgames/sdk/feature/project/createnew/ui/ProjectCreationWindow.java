@@ -110,7 +110,7 @@ public class ProjectCreationWindow {
                 }
             }
         );
-        this.window.run();
+        this.window.open();
     }
 
     private static Licence getFromIndex(int index) {
@@ -150,7 +150,7 @@ public class ProjectCreationWindow {
         }
     }
 
-    private static final class InputTextEntry extends InputEntry<WindowTextLine> {
+    private static final class InputTextEntry extends InputEntry<WindowInputBox> {
 
         private InputTextEntry(WindowShell parent, int position, String label) {
             super(parent, position, label);

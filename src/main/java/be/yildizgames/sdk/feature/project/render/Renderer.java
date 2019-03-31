@@ -40,6 +40,7 @@ import be.yildizgames.module.graphic.particle.ParticleSystem;
 import be.yildizgames.module.window.input.MousePosition;
 import be.yildizgames.module.window.input.WindowInputListener;
 import be.yildizgames.module.window.swt.SwtWindowEngine;
+import be.yildizgames.module.window.swt.widget.SwtWindowShell;
 import be.yildizgames.module.window.widget.WindowShell;
 import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.model.Project;
@@ -67,9 +68,8 @@ public class Renderer implements ProjectListener {
     }
 
     public void init(WindowShell window) {
-        this.windowEngine = new SwtWindowEngine(window, new Coordinates(new Size(window.getScreenSize().width - 150,window.getScreenSize().height), new Position(150,0)));
+        this.windowEngine = new SwtWindowEngine((SwtWindowShell)window, new Coordinates(new Size(window.getScreenSize().width - 150,window.getScreenSize().height), new Position(150,0)));
         this.windowEngine.showCursor();
-        window.onClose(e -> run = false);
         this.graphicEngine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
         this.windowEngine.registerInput(new WindowInputListener() {
 
