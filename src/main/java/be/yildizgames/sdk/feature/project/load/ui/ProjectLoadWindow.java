@@ -23,10 +23,11 @@
  */
 package be.yildizgames.sdk.feature.project.load.ui;
 
-import be.yildizgames.module.window.widget.WindowModalFile;
 import be.yildizgames.module.window.widget.WindowShell;
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.ProjectListener;
+import be.yildizgames.sdk.feature.project.load.formatter.JsonToObject;
+import be.yildizgames.sdk.feature.project.load.persistence.FromFile;
 
 import java.util.List;
 
@@ -43,6 +44,10 @@ public class ProjectLoadWindow {
     }
 
     public void init(Configuration configuration) {
-        WindowModalFile modalFile = this.parent.createOpenFileBox();
+        this.parent.createOpenFileBox()
+                .setTitle("Open")
+                .setPath(configuration.rootPath)
+                .setExtensions("*.yzf")
+                .onOpen(s -> this.listeners.forEach(l -> l.onLoad(JsonToObject.toProject(FromFile.load(s)))));
     }
 }

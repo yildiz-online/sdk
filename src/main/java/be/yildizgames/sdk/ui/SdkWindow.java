@@ -25,8 +25,11 @@ package be.yildizgames.sdk.ui;
 
 import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.module.color.Color;
-import be.yildizgames.module.window.swt.widget.SwtWindowMenuBar;
 import be.yildizgames.module.window.swt.widget.SwtWindowShell;
+import be.yildizgames.module.window.widget.WindowMenuBar;
+import be.yildizgames.module.window.widget.WindowMenuBarElementDefinition;
+import be.yildizgames.module.window.widget.WindowMenuElement;
+import be.yildizgames.module.window.widget.WindowMenuElementDefinition;
 import be.yildizgames.module.window.widget.WindowShell;
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.ProjectListener;
@@ -55,7 +58,7 @@ public class SdkWindow implements ProjectListener {
     private final Save save;
 
     private final Renderer renderer;
-    private SwtWindowMenuBar bar;
+    private WindowMenuBar bar;
     private final SdkTranslation translation;
 
     private SdkWindow(Configuration configuration) {
@@ -93,19 +96,19 @@ public class SdkWindow implements ProjectListener {
     private void generateMenus(WindowShell parent, List<ProjectListener> l, Configuration configuration) {
 
         this.bar = parent.createMenuBar(
-                new MenuBarElement(translation.menuFile(),
-                        new MenuElement(1, translation.menuNew(), e ->  new ProjectCreationWindow(parent, l, this.translation).init(configuration)),
-                        new MenuElement(2, translation.menuOpen(), e -> new ProjectLoadWindow(parent, l).init(configuration)),
-                        new MenuElement(SAVE, translation.menuSave(), e -> this.save.save(configuration))),
-                new MenuBarElement(translation.menuCreate(),
-                        new MenuElement(CREATE_PARTICLE_SYSTEM, translation.menuParticleSystem(), e -> l.forEach(pl -> pl.onUpdate(new ParticleSystemDefinition()))),
-                        new MenuElement(CREATE_BOX,translation.menuBox(), e -> l.forEach(pl -> pl.onUpdate(new BoxDefinition())))
+                new WindowMenuBarElementDefinition(translation.menuFile(),
+                        new WindowMenuElementDefinition(1, translation.menuNew(), () ->  new ProjectCreationWindow(parent, l, this.translation).init(configuration)),
+                        new WindowMenuElementDefinition(2, translation.menuOpen(), () -> new ProjectLoadWindow(parent, l).init(configuration)),
+                        new WindowMenuElementDefinition(SAVE, translation.menuSave(), () -> this.save.save(configuration))),
+                new WindowMenuBarElementDefinition(translation.menuCreate(),
+                        new WindowMenuElementDefinition(CREATE_PARTICLE_SYSTEM, translation.menuParticleSystem(), () -> l.forEach(pl -> pl.onUpdate(new ParticleSystemDefinition()))),
+                        new WindowMenuElementDefinition(CREATE_BOX,translation.menuBox(), () -> l.forEach(pl -> pl.onUpdate(new BoxDefinition())))
                 )
         );
 
-        this.bar.getItemById(SAVE).ifPresent(i -> i.setEnabled(false));
-        this.bar.getItemById(CREATE_PARTICLE_SYSTEM).ifPresent(i -> i.setEnabled(false));
-        this.bar.getItemById(CREATE_BOX).ifPresent(i -> i.setEnabled(false));
+        this.bar.getItemById(SAVE).ifPresent(WindowMenuElement::disable);
+        this.bar.getItemById(CREATE_PARTICLE_SYSTEM).ifPresent(WindowMenuElement::disable);
+        this.bar.getItemById(CREATE_BOX).ifPresent(WindowMenuElement::disable);
     }
 
     private void generateObjectData(WindowShell parent) {
@@ -114,9 +117,9 @@ public class SdkWindow implements ProjectListener {
 
     @Override
     public void onLoad(Project p) {
-        this.bar.getItemById(SAVE).ifPresent(i -> i.setEnabled(true));
-        this.bar.getItemById(CREATE_PARTICLE_SYSTEM).ifPresent(i -> i.setEnabled(true));
-        this.bar.getItemById(CREATE_BOX).ifPresent(i -> i.setEnabled(true));
+        this.bar.getItemById(SAVE).ifPresent(WindowMenuElement::enable);
+        this.bar.getItemById(CREATE_PARTICLE_SYSTEM).ifPresent(WindowMenuElement::enable);
+        this.bar.getItemById(CREATE_BOX).ifPresent(WindowMenuElement::enable);
     }
 
     @Override

@@ -51,7 +51,7 @@ public class PositionItem {
         WindowInputBox pos = parent.createInputBox();
         pos.setCoordinates(new Coordinates(60,20, label.getLeft() + 150 + i * 70, label.getTop()));
         pos.setToolTip(tooltip);
-        pos.onChange(l -> Optional.ofNullable(movable).ifPresent(
+        pos.onChange(() -> Optional.ofNullable(movable).ifPresent(
                 m -> m.setPosition(checkInput(posX), checkInput(posY), checkInput(posZ))));
         return pos;
     }

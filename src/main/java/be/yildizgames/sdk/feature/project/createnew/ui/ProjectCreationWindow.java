@@ -25,6 +25,7 @@ package be.yildizgames.sdk.feature.project.createnew.ui;
 
 import be.yildizgames.module.color.Color;
 import be.yildizgames.module.coordinate.Coordinates;
+import be.yildizgames.module.window.widget.WindowWidget;
 import be.yildizgames.module.window.widget.WindowButtonText;
 import be.yildizgames.module.window.widget.WindowDropdown;
 import be.yildizgames.module.window.widget.WindowInputBox;
@@ -116,7 +117,7 @@ public class ProjectCreationWindow {
         return Licence.values()[index];
     }
 
-    private static abstract class InputEntry<T extends Control> {
+    private static abstract class InputEntry<T extends WindowWidget> {
 
         final WindowTextLine label;
 
@@ -139,39 +140,39 @@ public class ProjectCreationWindow {
             return result;
         }
 
-        protected abstract T generateInput(WindowShell parent, Control source);
+        protected abstract T generateInput(WindowShell parent, WindowWidget source);
 
-        private WindowTextLine generateErrorLabel(WindowShell parent, Control source) {
+        private WindowTextLine generateErrorLabel(WindowShell parent, WindowWidget source) {
             WindowTextLine result = parent.createTextLine();
-            result.setPosition(source.getLocation().x + source.getSize().x + 50, source.getLocation().y);
+            result.setPosition(source.getRight() + 50, source.getTop());
             //result.setSize(250, 20);
             return result;
         }
     }
 
-    private static final class InputTextEntry extends InputEntry<Text> {
+    private static final class InputTextEntry extends InputEntry<WindowTextLine> {
 
         private InputTextEntry(WindowShell parent, int position, String label) {
             super(parent, position, label);
         }
 
-        protected WindowInputBox generateInput(WindowShell parent, Control source) {
+        protected WindowInputBox generateInput(WindowShell parent, WindowWidget source) {
             WindowInputBox result = parent.createInputBox();
-            result.setCoordinates(new Coordinates(250,20, source.getLocation().x + source.getSize().x + 50, source.getLocation().y));
+            result.setCoordinates(new Coordinates(250,20, source.getRight() + 50, source.getTop()));
             return result;
         }
     }
 
-    private static final class InputComboEntry extends InputEntry<Combo> {
+    private static final class InputComboEntry extends InputEntry<WindowDropdown> {
 
         private InputComboEntry(WindowShell parent, int position, String label) {
             super(parent, position, label);
         }
 
-        protected WindowDropdown generateInput(WindowShell parent, Control source) {
+        protected WindowDropdown generateInput(WindowShell parent, WindowWidget source) {
             WindowDropdown licence = parent.createDropdown();
             licence.setItems(Licence.values());
-            licence.setCoordinates(new Coordinates(250,20, source.getLocation().x + source.getSize().x + 50,source.getLocation().y));
+            licence.setCoordinates(new Coordinates(250,20, source.getRight() + 50, source.getTop()));
             return licence;
         }
     }
