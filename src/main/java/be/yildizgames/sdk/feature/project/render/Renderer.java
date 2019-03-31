@@ -51,6 +51,7 @@ import be.yildizgames.sdk.feature.project.model.items.Scene;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Renderer implements ProjectListener {
 
@@ -75,12 +76,15 @@ public class Renderer implements ProjectListener {
 
             @Override
             public void mouseLeftClick(MousePosition position) {
-                GraphicWorld w = worlds.get(currentScene.getName());
-                RayProvider rp = w.getDefaultCamera();
-                //Optional<EntityId> id = w.createQuery(rp).getEntity(position);
-                Point3D p = w.createGroundQuery(rp).getPoint(position);
-                System.out.println(p);
-                //id.ifPresent(System.out::println);
+                Optional.ofNullable(worlds.get(currentScene.getName())).ifPresent(
+                        w -> {
+                            RayProvider rp = w.getDefaultCamera();
+                            //Optional<EntityId> id = w.createQuery(rp).getEntity(position);
+                            Point3D p = w.createGroundQuery(rp).getPoint(position);
+                            System.out.println(p);
+                            //id.ifPresent(System.out::println);
+                        });
+
             }
         });
 
