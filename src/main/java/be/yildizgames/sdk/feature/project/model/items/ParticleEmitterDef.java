@@ -2,6 +2,9 @@ package be.yildizgames.sdk.feature.project.model.items;
 
 import be.yildizgames.module.graphic.particle.ParticleEmitter;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class ParticleEmitterDef {
 
     private ParticleEmitter.EmitterType type;

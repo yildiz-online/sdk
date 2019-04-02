@@ -27,6 +27,9 @@ import be.yildizgames.sdk.feature.project.model.Project;
 import be.yildizgames.sdk.feature.project.model.items.BoxDefinition;
 import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public interface ProjectListener {
 
     void onLoad(Project p);

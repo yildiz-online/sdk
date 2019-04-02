@@ -34,6 +34,9 @@ import be.yildizgames.sdk.feature.project.save.persistence.ToFile;
 
 import java.util.Optional;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class Save implements ProjectListener {
 
     private Project project;

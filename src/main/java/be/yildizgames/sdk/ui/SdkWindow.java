@@ -46,6 +46,9 @@ import be.yildizgames.sdk.ui.translation.SdkTranslation;
 
 import java.util.List;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class SdkWindow implements ProjectListener {
 
     private static final int CREATE_BOX = 5;

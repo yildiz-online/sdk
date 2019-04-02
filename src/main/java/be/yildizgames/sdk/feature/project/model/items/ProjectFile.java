@@ -25,6 +25,9 @@ package be.yildizgames.sdk.feature.project.model.items;
 
 import be.yildizgames.sdk.feature.project.model.Project;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class ProjectFile {
 
     private final Project project;

@@ -27,6 +27,9 @@ import be.yildizgames.sdk.feature.project.model.Project;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class ObjectToJson {
 
     private ObjectToJson() {

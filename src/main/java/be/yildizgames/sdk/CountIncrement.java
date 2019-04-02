@@ -23,6 +23,9 @@
  */
 package be.yildizgames.sdk;
 
+/**
+ * @author Grégory Van den Borre
+ */
 //FIXME move to common-util
 @Deprecated
 public class CountIncrement {

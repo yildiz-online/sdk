@@ -25,6 +25,9 @@ package be.yildizgames.sdk.configuration;
 
 import be.yildizgames.common.exception.implementation.ImplementationException;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class Configuration {
 
     public final String rootPath;

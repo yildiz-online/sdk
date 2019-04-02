@@ -29,6 +29,9 @@ import be.yildizgames.common.geometry.Size2;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class ParticleSystemDefinition implements Definition {
 
     private String name = "Particles";

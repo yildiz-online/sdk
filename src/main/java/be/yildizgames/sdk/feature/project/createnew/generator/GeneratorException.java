@@ -23,6 +23,9 @@
  */
 package be.yildizgames.sdk.feature.project.createnew.generator;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class GeneratorException extends RuntimeException {
 
     public GeneratorException(String s) {

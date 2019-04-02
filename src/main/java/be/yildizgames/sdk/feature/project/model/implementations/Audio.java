@@ -23,6 +23,9 @@
  */
 package be.yildizgames.sdk.feature.project.model.implementations;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public enum Audio {
 
     NONE, OPENAL;

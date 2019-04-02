@@ -29,6 +29,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class ToFile {
 
     private ToFile() {

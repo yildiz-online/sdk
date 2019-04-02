@@ -27,6 +27,9 @@ import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.model.Project;
 
+/**
+ * @author Grégory Van den Borre
+ */
 class MainGenerator {
 
     private MainGenerator() {

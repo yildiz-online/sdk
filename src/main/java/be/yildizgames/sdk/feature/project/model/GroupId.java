@@ -23,6 +23,9 @@
  */
 package be.yildizgames.sdk.feature.project.model;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class GroupId {
 
     public final String value;

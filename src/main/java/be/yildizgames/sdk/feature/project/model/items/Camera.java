@@ -23,5 +23,8 @@
  */
 package be.yildizgames.sdk.feature.project.model.items;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class Camera {
 }

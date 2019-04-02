@@ -26,6 +26,9 @@ package be.yildizgames.sdk.feature.project.model.items;
 import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.model.EntityId;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class BoxDefinition implements Definition{
 
     private String name = "box";

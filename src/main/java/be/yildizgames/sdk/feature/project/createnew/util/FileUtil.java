@@ -30,6 +30,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class FileUtil {
 
     private FileUtil() {
@@ -37,7 +40,7 @@ public class FileUtil {
     }
 
     public static void replacePlaceHolders(Path file, Project project) throws IOException {
-        String content = new String(Files.readAllBytes(file), StandardCharsets.UTF_8);
+        String content = Files.readString(file);
         content = content
                 .replaceAll("--NAME--", project.name.value)
                 .replaceAll("--AUTHOR--" ,project.author.value)
@@ -53,12 +56,8 @@ public class FileUtil {
     private static String replaceEngine(String input, String context, String engine) throws IOException {
         return input
                 .replaceAll("--" + context.toUpperCase() + "-LIN--",
-                        new String(Files.readAllBytes(
-                                PathUtil.getFromTemplate("engines/" + context + "/" + engine + "-LIN")),
-                                StandardCharsets.UTF_8))
+                        Files.readString(PathUtil.getFromTemplate("engines/" + context + "/" + engine + "-LIN")))
                 .replaceAll("--" + context.toUpperCase() + "-WIN--",
-                        new String(Files.readAllBytes(
-                                PathUtil.getFromTemplate("engines/" + context + "/" + engine + "-WIN")),
-                                StandardCharsets.UTF_8));
+                        Files.readString(PathUtil.getFromTemplate("engines/" + context + "/" + engine + "-WIN")));
     }
 }

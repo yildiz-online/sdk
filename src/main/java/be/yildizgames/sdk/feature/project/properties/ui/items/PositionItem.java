@@ -32,6 +32,9 @@ import be.yildizgames.module.window.widget.WindowTextLine;
 
 import java.util.Optional;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class PositionItem {
 
     private Movable movable;

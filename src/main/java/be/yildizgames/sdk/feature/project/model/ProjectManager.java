@@ -25,6 +25,9 @@ package be.yildizgames.sdk.feature.project.model;
 
 import java.util.Optional;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class ProjectManager {
 
     private Project project;

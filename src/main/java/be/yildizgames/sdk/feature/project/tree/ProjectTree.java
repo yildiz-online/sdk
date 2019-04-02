@@ -35,6 +35,9 @@ import be.yildizgames.sdk.feature.project.model.items.ParticleSystemDefinition;
 
 import java.util.List;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class ProjectTree implements ProjectListener {
 
     private static final int MODEL_ID = 2;

@@ -29,6 +29,9 @@ import be.yildizgames.module.window.widget.WindowShell;
 import be.yildizgames.module.window.widget.WindowTextLine;
 import be.yildizgames.sdk.feature.project.properties.ui.items.PositionItem;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class ParticleObjectView {
 
     private final WindowShell parent;

@@ -54,6 +54,9 @@ import org.eclipse.swt.widgets.Text;
 
 import java.util.List;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class ProjectCreationWindow {
 
     private final List<ProjectListener> listeners;

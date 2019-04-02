@@ -25,6 +25,9 @@ package be.yildizgames.sdk.feature.project.save.exception;
 
 import be.yildizgames.common.exception.technical.TechnicalException;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class SaveException extends TechnicalException {
 
     public SaveException(String message, Exception cause) {

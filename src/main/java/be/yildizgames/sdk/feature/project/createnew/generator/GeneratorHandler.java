@@ -29,6 +29,9 @@ import be.yildizgames.sdk.feature.project.model.Project;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class GeneratorHandler {
 
     private final Project project;

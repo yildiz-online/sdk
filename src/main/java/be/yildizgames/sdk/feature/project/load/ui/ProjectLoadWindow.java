@@ -31,6 +31,9 @@ import be.yildizgames.sdk.feature.project.load.persistence.FromFile;
 
 import java.util.List;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class ProjectLoadWindow {
 
     private final WindowShell parent;

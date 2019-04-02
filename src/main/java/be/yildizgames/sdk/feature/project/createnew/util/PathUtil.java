@@ -30,6 +30,9 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class PathUtil {
 
     private PathUtil() {

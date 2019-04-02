@@ -53,6 +53,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * @author Grégory Van den Borre
+ */
 public class Renderer implements ProjectListener {
 
     private SwtWindowEngine windowEngine;
