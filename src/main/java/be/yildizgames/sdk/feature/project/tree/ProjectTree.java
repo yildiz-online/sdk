@@ -50,7 +50,7 @@ public class ProjectTree implements ProjectListener {
 
     public ProjectTree(WindowShell parent) {
         this.parent = parent;
-        this.tree = parent.createTreeRoot(150, parent.getScreenSize().height);
+        this.tree = parent.createTreeRoot(150, parent.getSize().height);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ProjectTree implements ProjectListener {
         WindowTreeElement[] particles = generate(50, p.scene.getParticles());
         WindowTreeElement[] boxes = generate(150, p.scene.getModels().getBoxes());
 
-        this.tree = parent.createTreeRoot(150, parent.getScreenSize().height,
+        this.tree = parent.createTreeRoot(150, parent.getSize().height,
                 new WindowTreeElement(0,"Project",
                         new WindowTreeElement(1,"Scene",
                                 new WindowTreeElement(MODEL_ID,"Models", boxes),

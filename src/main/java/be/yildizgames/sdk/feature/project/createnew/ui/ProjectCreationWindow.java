@@ -84,7 +84,7 @@ public class ProjectCreationWindow {
         InputComboEntry licence = new InputComboEntry(this.window, 3, translation.createProjectLicence());
 
         WindowButtonText b = this.window.createTextButton();
-        b.setCoordinates(new Coordinates(150,50, this.window.getScreenSize().width - 200,this.window.getScreenSize().height - 100));
+        b.setCoordinates(new Coordinates(150,50, this.window.getSize().width - 200,this.window.getSize().height - 100));
         b.setText(translation.create());
         b.addMouseLeftClickListener(() -> {
                  name.error.setText("");

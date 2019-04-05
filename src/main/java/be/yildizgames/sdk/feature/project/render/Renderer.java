@@ -72,7 +72,7 @@ public class Renderer implements ProjectListener {
     }
 
     public void init(WindowShell window) {
-        this.windowEngine = new SwtWindowEngine((SwtWindowShell)window, new Coordinates(new Size(window.getScreenSize().width - 150,window.getScreenSize().height), new Position(150,0)));
+        this.windowEngine = new SwtWindowEngine((SwtWindowShell)window, new Coordinates(new Size(window.getSize().width - 150,window.getSize().height), new Position(150,0)));
         this.windowEngine.showCursor();
         this.graphicEngine = new OgreGraphicEngine(windowEngine, NativeResourceLoader.inJar());
         this.windowEngine.registerInput(new WindowInputListener() {
