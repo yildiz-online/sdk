@@ -68,7 +68,7 @@
     <dependency>
       <groupId>be.yildiz-games</groupId>
       <artifactId>module-vfs-physfs-win64</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>1.0.0</version>
     </dependency>
     <dependency>
       <!--FIXME move version to parent -->
