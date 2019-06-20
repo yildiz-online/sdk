@@ -25,12 +25,12 @@ package be.yildizgames.sdk.feature.project.createnew.ui;
 
 import be.yildizgames.module.color.Color;
 import be.yildizgames.module.coordinate.Coordinates;
-import be.yildizgames.module.window.widget.WindowWidget;
 import be.yildizgames.module.window.widget.WindowButtonText;
 import be.yildizgames.module.window.widget.WindowDropdown;
 import be.yildizgames.module.window.widget.WindowInputBox;
 import be.yildizgames.module.window.widget.WindowShell;
 import be.yildizgames.module.window.widget.WindowTextLine;
+import be.yildizgames.module.window.widget.WindowWidget;
 import be.yildizgames.sdk.configuration.Configuration;
 import be.yildizgames.sdk.feature.project.ProjectListener;
 import be.yildizgames.sdk.feature.project.createnew.generator.GeneratorHandler;
@@ -48,9 +48,6 @@ import be.yildizgames.sdk.feature.project.model.items.Scene;
 import be.yildizgames.sdk.feature.project.save.formatter.ObjectToJson;
 import be.yildizgames.sdk.feature.project.save.persistence.ToFile;
 import be.yildizgames.sdk.ui.translation.SdkTranslation;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Text;
 
 import java.util.List;
 
