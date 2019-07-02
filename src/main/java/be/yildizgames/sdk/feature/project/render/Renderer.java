@@ -96,7 +96,7 @@ public class Renderer implements ProjectListener {
     public void run() {
         this.run = true;
         while(run) {
-            windowEngine.updateWindow();
+            windowEngine.update();
             graphicEngine.update();
             //s.rotate(1,10);
         }
