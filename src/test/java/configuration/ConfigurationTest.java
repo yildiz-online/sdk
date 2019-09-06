@@ -26,7 +26,6 @@
 
 package configuration;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.sdk.configuration.Configuration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
@@ -45,7 +44,7 @@ public class ConfigurationTest {
 
         @Test
         public void withNull() {
-            Assertions.assertThrows(ImplementationException.class, () -> new Configuration(null));
+            Assertions.assertThrows(NullPointerException.class, () -> new Configuration(null));
         }
 
     }

@@ -23,7 +23,6 @@
  */
 package be.yildizgames.sdk.ui;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.module.color.Color;
 import be.yildizgames.module.window.swt.widget.SwtWindowShell;
 import be.yildizgames.module.window.widget.WindowMenuBar;
@@ -127,7 +126,7 @@ public class SdkWindow implements ProjectListener {
 
     @Override
     public void onUpdate(ParticleSystemDefinition definition) {
-        ImplementationException.notYetImplemented();
+        throw new IllegalStateException();
     }
 
     @Override

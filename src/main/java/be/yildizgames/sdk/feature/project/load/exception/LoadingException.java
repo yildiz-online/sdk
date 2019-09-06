@@ -23,12 +23,10 @@
  */
 package be.yildizgames.sdk.feature.project.load.exception;
 
-import be.yildizgames.common.exception.technical.TechnicalException;
-
 /**
  * @author Grégory Van den Borre
  */
-public class LoadingException extends TechnicalException {
+public class LoadingException extends IllegalStateException {
 
     public LoadingException(String message, Exception cause) {
         super(message, cause);

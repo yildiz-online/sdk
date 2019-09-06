@@ -23,7 +23,6 @@
  */
 package be.yildizgames.sdk.feature.project.render;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
 import be.yildizgames.common.geometry.Point3D;
 import be.yildizgames.common.libloader.NativeResourceLoader;
 import be.yildizgames.common.shape.Box;
@@ -120,8 +119,6 @@ public class Renderer implements ProjectListener {
     }
 
     private void createBox(GraphicWorld w, BoxDefinition def) {
-        ImplementationException.throwForNull(w);
-        ImplementationException.throwForNull(def);
         GraphicObjectBuilder builder = w.createObject()
                 .withShape(Box.box((int)def.getSize().x, (int)def.getSize().y, (int)def.getSize().z))
                 .atPosition(def.getPosition())

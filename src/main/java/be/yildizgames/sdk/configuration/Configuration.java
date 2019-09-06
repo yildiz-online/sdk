@@ -23,7 +23,7 @@
  */
 package be.yildizgames.sdk.configuration;
 
-import be.yildizgames.common.exception.implementation.ImplementationException;
+import java.util.Objects;
 
 /**
  * @author Grégory Van den Borre
@@ -34,7 +34,6 @@ public class Configuration {
 
     public Configuration(String rootPath) {
         super();
-        ImplementationException.throwForNull(rootPath);
-        this.rootPath = rootPath;
+        this.rootPath = Objects.requireNonNull(rootPath);
     }
 }
