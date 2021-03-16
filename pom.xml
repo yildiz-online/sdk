@@ -78,7 +78,7 @@
       <!--FIXME move version to parent -->
       <groupId>org.eclipse.jgit</groupId>
       <artifactId>org.eclipse.jgit</artifactId>
-      <version>5.10.0.202012080955-r</version>
+      <version>5.11.0.202103091610-r</version>
       <exclusions>
         <exclusion>
           <groupId>org.slf4j</groupId>
